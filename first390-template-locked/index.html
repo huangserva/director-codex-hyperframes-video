@@ -1,0 +1,675 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1920, height=1080" />
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+    <style>
+      * { box-sizing: border-box; margin: 0; padding: 0; }
+      html, body { width: 1920px; height: 1080px; overflow: hidden; background: #030405; color: #f7f2df; font-family: Arial, sans-serif; }
+      #root {
+        position: relative;
+        width: 1920px;
+        height: 1080px;
+        overflow: hidden;
+        background: #030405;
+        --split-x: 120px;
+        --split-left: 1190px;
+        --split-gap: 60px;
+        --split-video: 430px;
+        --split-total: 1680px;
+        --split-top: 126px;
+        --split-height: 690px;
+        --split-left-pad-x: 74px;
+        --split-card-y: 442px;
+      }
+      .clip { position: absolute; }
+      .scene {
+        inset: 0;
+        overflow: hidden;
+        background:
+          radial-gradient(circle at 44% 48%, rgba(217,177,91,.18), transparent 22%),
+          radial-gradient(circle at 79% 56%, rgba(21,151,202,.14), transparent 18%),
+          #030405;
+      }
+      .scene::before {
+        content: "";
+        position: absolute;
+        inset: -80px;
+        opacity: .22;
+        background-image:
+          linear-gradient(30deg, rgba(255,255,255,.13) 12%, transparent 12.5%, transparent 87%, rgba(255,255,255,.13) 87.5%, rgba(255,255,255,.13)),
+          linear-gradient(150deg, rgba(255,255,255,.13) 12%, transparent 12.5%, transparent 87%, rgba(255,255,255,.13) 87.5%, rgba(255,255,255,.13));
+        background-size: 118px 204px;
+      }
+      .scene::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        pointer-events: none;
+        background:
+          linear-gradient(90deg, rgba(0,0,0,.72), transparent 22%, transparent 78%, rgba(0,0,0,.7)),
+          linear-gradient(180deg, rgba(0,0,0,.24), transparent 22%, transparent 72%, rgba(0,0,0,.52));
+      }
+      video { display: block; object-fit: cover; }
+      .chip {
+        position: absolute;
+        left: var(--split-x);
+        top: 78px;
+        z-index: 4;
+        padding: 10px 24px;
+        border: 1px solid rgba(217,177,91,.56);
+        border-radius: 999px;
+        color: #f4cf75;
+        font-size: 25px;
+        font-weight: 900;
+        background: rgba(217,177,91,.08);
+      }
+      .split-panel {
+        position: absolute;
+        z-index: 3;
+        left: var(--split-x);
+        top: var(--split-top);
+        width: var(--split-left);
+        height: var(--split-height);
+        padding: 134px var(--split-left-pad-x) 70px;
+        border: 1px solid rgba(217,177,91,.42);
+        border-radius: 16px;
+        background: rgba(6, 10, 11, .76);
+        box-shadow: 0 0 34px rgba(217,177,91,.16), inset 0 0 90px rgba(21,151,202,.05);
+      }
+      .kicker, .title-card span, .step-card span {
+        color: #f2c45d;
+        font-size: 36px;
+        font-style: italic;
+        font-weight: 950;
+      }
+      .split-panel h1 {
+        margin-top: 28px;
+        color: #fff8e6;
+        font-size: 78px;
+        font-style: italic;
+        font-weight: 950;
+        line-height: 1.08;
+      }
+      .split-panel p {
+        margin-top: 28px;
+        color: #ecebe1;
+        font-size: 36px;
+        font-style: italic;
+        font-weight: 850;
+      }
+      .hud-cards {
+        position: absolute;
+        left: var(--split-left-pad-x);
+        right: var(--split-left-pad-x);
+        top: var(--split-card-y);
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 24px;
+      }
+      .hud-card {
+        height: 120px;
+        display: flex;
+        align-items: center;
+        gap: 30px;
+        padding: 0 36px;
+        border: 1px solid rgba(255,255,255,.18);
+        border-radius: 10px;
+        background: rgba(7, 9, 10, .54);
+      }
+      .hud-card span { color: #18a9ef; font-size: 30px; font-weight: 950; }
+      .hud-card strong { color: #f7f2df; font-size: 32px; font-weight: 900; }
+      .progress-line {
+        position: absolute;
+        left: var(--split-left-pad-x);
+        right: var(--split-left-pad-x);
+        bottom: 66px;
+        height: 4px;
+        display: flex;
+      }
+      .progress-line i { width: 46%; background: #f0c45d; }
+      .progress-line b { flex: 1; background: #18a9ef; }
+      .split-video-frame {
+        position: absolute;
+        z-index: 4;
+        left: calc(var(--split-x) + var(--split-left) + var(--split-gap));
+        top: var(--split-top);
+        width: var(--split-video);
+        height: var(--split-height);
+        border: 4px solid rgba(217,177,91,.9);
+        border-radius: 14px;
+        overflow: hidden;
+        background: #080a0b;
+        box-shadow: 0 0 36px rgba(217,177,91,.34);
+      }
+      .media-layer { position: absolute; object-fit: cover; z-index: 4; }
+      .media-hero { inset: 0; width: 100%; height: 100%; z-index: 2; }
+      .media-split {
+        left: calc(var(--split-x) + var(--split-left) + var(--split-gap));
+        top: var(--split-top);
+        width: var(--split-video);
+        height: var(--split-height);
+        border-radius: 12px;
+      }
+      .media-screen {
+        left: 120px;
+        top: 112px;
+        width: 1420px;
+        height: 800px;
+        border-radius: 14px;
+      }
+      .media-pip {
+        right: 72px;
+        bottom: 66px;
+        width: 300px;
+        height: 300px;
+        border: 5px solid rgba(217,177,91,.96);
+        border-radius: 50%;
+        box-shadow: 0 0 34px rgba(217,177,91,.42);
+      }
+      .media-proof {
+        left: 190px;
+        top: 240px;
+        width: 1540px;
+        height: 650px;
+        border-radius: 14px;
+      }
+      .screen-video, .pip-video, .proof-video, .split-video, .hero-video { width: 100%; height: 100%; }
+      .hero-overlay {
+        position: absolute;
+        z-index: 4;
+        left: 120px;
+        bottom: 130px;
+        color: #fff8e6;
+        font-size: 58px;
+        font-style: italic;
+        font-weight: 950;
+        text-shadow: 0 5px 18px rgba(0,0,0,.72);
+      }
+      .title-card, .step-card {
+        position: absolute;
+        z-index: 3;
+        left: 370px;
+        top: 280px;
+        width: 980px;
+      }
+      .title-card h1, .step-card h1, .component-proof h1 {
+        margin-top: 22px;
+        color: #f2c45d;
+        font-size: 78px;
+        font-style: italic;
+        font-weight: 950;
+        text-shadow: 0 0 26px rgba(217,177,91,.42);
+      }
+      .title-card p, .step-card p { margin-top: 22px; color: #f7f2df; font-size: 28px; font-weight: 800; }
+      .screen-stage {
+        position: absolute;
+        z-index: 3;
+        left: 120px;
+        top: 112px;
+        width: 1420px;
+        height: 800px;
+        border: 2px solid rgba(255,255,255,.68);
+        border-radius: 16px;
+        overflow: hidden;
+        background: rgba(248,248,246,.96);
+        box-shadow: 0 20px 70px rgba(0,0,0,.36);
+      }
+      .screen-label {
+        position: absolute;
+        left: 34px;
+        top: 28px;
+        padding: 8px 14px;
+        color: #111;
+        background: rgba(255,255,255,.72);
+        border-radius: 6px;
+        font-size: 26px;
+        font-weight: 900;
+      }
+      .pip-frame {
+        position: absolute;
+        z-index: 5;
+        right: 72px;
+        bottom: 66px;
+        width: 300px;
+        height: 300px;
+        border: 5px solid rgba(217,177,91,.96);
+        border-radius: 50%;
+        overflow: hidden;
+        background: #080a0b;
+        box-shadow: 0 0 34px rgba(217,177,91,.42);
+      }
+      .stat-shell {
+        position: absolute;
+        z-index: 4;
+        left: 118px;
+        top: 220px;
+        width: 1190px;
+        height: 646px;
+        border: 2px solid rgba(217,177,91,.30);
+        border-radius: 18px;
+        background: rgba(8,10,11,.72);
+      }
+      .stat-shell span { position: absolute; left: 72px; top: 82px; color: #f2c45d; font-size: 58px; font-weight: 900; }
+      .stat-shell strong { position: absolute; left: 72px; top: 178px; color: #f5c766; font-size: 250px; font-style: italic; line-height: .95; }
+      .stat-shell em { position: absolute; left: 505px; top: 332px; color: #f7f1d6; font-size: 82px; font-style: normal; font-weight: 950; }
+      .proof-stage {
+        position: absolute;
+        z-index: 3;
+        left: 190px;
+        top: 240px;
+        width: 1540px;
+        height: 650px;
+        border: 1px solid rgba(217,177,91,.36);
+        border-radius: 16px;
+        overflow: hidden;
+        background: rgba(6,10,11,.78);
+      }
+      .component-proof h1 { position: absolute; z-index: 4; left: 190px; top: 140px; color: #fff8e6; font-size: 54px; }
+      .todo-slot {
+        width: 100%;
+        height: 100%;
+        display: grid;
+        place-items: center;
+        text-align: center;
+        color: #f0c45d;
+        background:
+          linear-gradient(135deg, rgba(217,177,91,.12), rgba(21,151,202,.08)),
+          rgba(8,10,11,.92);
+      }
+      .todo-slot div { max-width: 88%; font-size: 24px; font-weight: 950; overflow-wrap: anywhere; }
+      .todo-slot small { display: block; max-width: 88%; margin-top: 12px; color: #f7f2df; font-size: 14px; line-height: 1.25; opacity: .76; overflow-wrap: anywhere; }
+      .caption-line {
+        z-index: 30;
+        left: 50%;
+        bottom: 34px;
+        width: min(1560px, calc(100% - 260px));
+        transform: translateX(-50%);
+        color: #fffdf5;
+        font-size: 46px;
+        line-height: 1.14;
+        font-style: italic;
+        font-weight: 950;
+        text-align: center;
+        letter-spacing: 0;
+        text-shadow:
+          0 4px 0 rgba(0,0,0,.88),
+          0 0 10px rgba(0,0,0,.95),
+          0 0 22px rgba(0,0,0,.75);
+      }
+      .caption-line::before {
+        content: "";
+        position: absolute;
+        z-index: -1;
+        left: 50%;
+        top: 50%;
+        width: calc(100% + 54px);
+        height: calc(100% + 20px);
+        transform: translate(-50%, -50%);
+        border-radius: 12px;
+        background: linear-gradient(90deg, transparent, rgba(0,0,0,.42) 16%, rgba(0,0,0,.42) 84%, transparent);
+      }
+    </style>
+  </head>
+  <body>
+    <div id="root" data-composition-id="main" data-start="0" data-duration="390.770" data-width="1920" data-height="1080">
+      
+    <section id="s001" class="clip scene component-stats" data-component="StatsHero" data-scene-type="hook_stat" data-start="0" data-duration="0.733" data-track-index="10">
+      <div class="todo-slot hero"><div>TODO VIDEO ASSET</div><small>duix_intro_first10</small></div>
+      <div class="stat-shell">
+        <span>87万人看过</span>
+        <strong>87</strong>
+        <em>万</em>
+      </div>
+    </section>
+
+    <section id="s002" class="clip scene component-stats" data-component="StatsHero" data-scene-type="hook_stat" data-start="0.733" data-duration="1.9" data-track-index="10">
+      <div class="todo-slot hero"><div>TODO VIDEO ASSET</div><small>duix_intro_first10</small></div>
+      <div class="stat-shell">
+        <span>87万人看过</span>
+        <strong>87</strong>
+        <em>万</em>
+      </div>
+    </section>
+
+    <section id="s003" class="clip scene component-stats" data-component="StatsHero" data-scene-type="hook_stat" data-start="2.633" data-duration="0.3340000000000001" data-track-index="10">
+      <div class="todo-slot hero"><div>TODO VIDEO ASSET</div><small>duix_intro_browser_card</small></div>
+      <div class="stat-shell">
+        <span>87万人看过</span>
+        <strong>87</strong>
+        <em>万</em>
+      </div>
+    </section>
+
+    <section id="s004" class="clip scene component-stats" data-component="StatsHero" data-scene-type="hook_stat" data-start="2.967" data-duration="7.165999999999999" data-track-index="10">
+      <div class="todo-slot hero"><div>TODO VIDEO ASSET</div><small>duix_intro_browser_card</small></div>
+      <div class="stat-shell">
+        <span>87万人看过</span>
+        <strong>87</strong>
+        <em>万</em>
+      </div>
+    </section>
+
+    <section id="s005" class="clip scene component-title" data-component="TitleCard" data-scene-type="title_card" data-start="10.133" data-duration="2.687000000000001" data-track-index="10">
+      <div class="title-card">
+        <span>口播剪辑工具</span>
+        <h1>HyperFrames</h1>
+        <p>HyperFrames title card</p>
+      </div>
+    </section>
+
+    <section id="s006" class="clip scene component-split" data-component="SplitTextPresenter" data-scene-type="concept_split" data-start="12.82" data-duration="6.079999999999998" data-track-index="10">
+      <div class="chip">概念解释</div>
+      <div class="split-panel">
+        <div class="kicker">DESIGNED FOR</div>
+        <h1>Tech presenter intro</h1>
+        <p>沿用 2 分钟模版的强左信息栏和右侧视频栏。</p>
+        
+    <div class="hud-cards">
+      <div class="hud-card"><span>AI</span><strong>Tech presenter intro</strong></div>
+      <div class="hud-card"><span>&lt;&gt;</span><strong>直接改代码</strong></div>
+    </div>
+        <div class="progress-line"><i></i><b></b></div>
+      </div>
+      <div class="split-video-frame"><div class="todo-slot split"><div>TODO VIDEO ASSET</div><small>duix_course_presenter</small></div></div>
+    </section>
+
+    <section id="s007" class="clip scene component-split" data-component="SplitTextPresenter" data-scene-type="concept_split" data-start="18.9" data-duration="7.7330000000000005" data-track-index="10">
+      <div class="chip">概念解释</div>
+      <div class="split-panel">
+        <div class="kicker">DESIGNED FOR</div>
+        <h1>Question map</h1>
+        <p>沿用 2 分钟模版的强左信息栏和右侧视频栏。</p>
+        
+    <div class="hud-cards">
+      <div class="hud-card"><span>AI</span><strong>Question map</strong></div>
+      <div class="hud-card"><span>&lt;&gt;</span><strong>直接改代码</strong></div>
+    </div>
+        <div class="progress-line"><i></i><b></b></div>
+      </div>
+      <div class="split-video-frame"><div class="todo-slot split"><div>TODO VIDEO ASSET</div><small>duix_question_presenter</small></div></div>
+    </section>
+
+    <section id="s008" class="clip scene component-hero" data-component="HeroAroll" data-scene-type="aroll_emphasis" data-start="26.633" data-duration="5.800000000000001" data-track-index="10">
+      <div class="todo-slot hero"><div>TODO VIDEO ASSET</div><small>duix_cta_aroll</small></div>
+      <div class="hero-overlay"><strong>A-roll emphasis</strong></div>
+    </section>
+
+    <section id="s009" class="clip scene component-split" data-component="SplitTextPresenter" data-scene-type="concept_split" data-start="32.433" data-duration="5.786999999999999" data-track-index="10">
+      <div class="chip">概念解释</div>
+      <div class="split-panel">
+        <div class="kicker">DESIGNED FOR</div>
+        <h1>Designed for Agent</h1>
+        <p>沿用 2 分钟模版的强左信息栏和右侧视频栏。</p>
+        
+    <div class="hud-cards">
+      <div class="hud-card"><span>AI</span><strong>Designed for Agent</strong></div>
+      <div class="hud-card"><span>&lt;&gt;</span><strong>直接改代码</strong></div>
+    </div>
+        <div class="progress-line"><i></i><b></b></div>
+      </div>
+      <div class="split-video-frame"><div class="todo-slot split"><div>TODO VIDEO ASSET</div><small>duix_def_open_presenter</small></div></div>
+    </section>
+
+    <section id="s010" class="clip scene component-split" data-component="SplitTextPresenter" data-scene-type="concept_split" data-start="38.22" data-duration="7.020000000000003" data-track-index="10">
+      <div class="chip">概念解释</div>
+      <div class="split-panel">
+        <div class="kicker">DESIGNED FOR</div>
+        <h1>Agent structure/code</h1>
+        <p>沿用 2 分钟模版的强左信息栏和右侧视频栏。</p>
+        
+    <div class="hud-cards">
+      <div class="hud-card"><span>AI</span><strong>Agent structure/code</strong></div>
+      <div class="hud-card"><span>&lt;&gt;</span><strong>直接改代码</strong></div>
+    </div>
+        <div class="progress-line"><i></i><b></b></div>
+      </div>
+      <div class="split-video-frame"><div class="todo-slot split"><div>TODO VIDEO ASSET</div><small>duix_def_stack_presenter</small></div></div>
+    </section>
+
+    <section id="s011" class="clip scene component-split" data-component="SplitTextPresenter" data-scene-type="concept_split" data-start="45.24" data-duration="6.809999999999995" data-track-index="10">
+      <div class="chip">概念解释</div>
+      <div class="split-panel">
+        <div class="kicker">DESIGNED FOR</div>
+        <h1>Web to video</h1>
+        <p>沿用 2 分钟模版的强左信息栏和右侧视频栏。</p>
+        
+    <div class="hud-cards">
+      <div class="hud-card"><span>AI</span><strong>Web to video</strong></div>
+      <div class="hud-card"><span>&lt;&gt;</span><strong>直接改代码</strong></div>
+    </div>
+        <div class="progress-line"><i></i><b></b></div>
+      </div>
+      <div class="split-video-frame"><div class="todo-slot split"><div>TODO VIDEO ASSET</div><small>duix_def_flow_presenter</small></div></div>
+    </section>
+
+    <section id="s012" class="clip scene component-split" data-component="SplitTextPresenter" data-scene-type="concept_split" data-start="52.05" data-duration="16.516999999999996" data-track-index="10">
+      <div class="chip">概念解释</div>
+      <div class="split-panel">
+        <div class="kicker">DESIGNED FOR</div>
+        <h1>One sentence test</h1>
+        <p>沿用 2 分钟模版的强左信息栏和右侧视频栏。</p>
+        
+    <div class="hud-cards">
+      <div class="hud-card"><span>AI</span><strong>One sentence test</strong></div>
+      <div class="hud-card"><span>&lt;&gt;</span><strong>直接改代码</strong></div>
+    </div>
+        <div class="progress-line"><i></i><b></b></div>
+      </div>
+      <div class="split-video-frame"><div class="todo-slot split"><div>TODO VIDEO ASSET</div><small>duix_def_one_pip</small></div></div>
+    </section>
+
+    <section id="s013" class="clip scene component-screen" data-component="ScreenWithPip" data-scene-type="screen_demo_pip" data-start="68.567" data-duration="16.466000000000008" data-track-index="10">
+      <div class="screen-stage">
+        <div class="todo-slot screen-video"><div>TODO VIDEO ASSET</div><small>screen_prompt_plus_duix_pip</small></div>
+        <div class="screen-label">Prompt input</div>
+      </div>
+      <div class="todo-slot pip"><div>TODO VIDEO ASSET</div><small>screen_prompt_plus_duix_pip</small></div>
+    </section>
+
+    <section id="s014" class="clip scene component-step" data-component="StepCard" data-scene-type="step_card" data-start="85.033" data-duration="5.466999999999999" data-track-index="10">
+      <div class="chip">步骤节点</div>
+      <div class="step-card">
+        <span>READY TO RENDER</span>
+        <h1>Step 01 production spec</h1>
+        <p>该段只使用 2 分钟模板里的暗色步骤卡系统。</p>
+      </div>
+    </section>
+
+    <section id="s015" class="clip scene component-screen" data-component="ScreenWithPip" data-scene-type="screen_demo_pip" data-start="90.5" data-duration="7" data-track-index="10">
+      <div class="screen-stage">
+        <div class="todo-slot screen-video"><div>TODO VIDEO ASSET</div><small>screen_agent_log_plus_duix_pip</small></div>
+        <div class="screen-label">Agent log proof</div>
+      </div>
+      <div class="todo-slot pip"><div>TODO VIDEO ASSET</div><small>screen_agent_log_plus_duix_pip</small></div>
+    </section>
+
+    <section id="s016" class="clip scene component-step" data-component="StepCard" data-scene-type="step_card" data-start="97.5" data-duration="5.367000000000004" data-track-index="10">
+      <div class="chip">步骤节点</div>
+      <div class="step-card">
+        <span>READY TO RENDER</span>
+        <h1>Step 02 web search</h1>
+        <p>该段只使用 2 分钟模板里的暗色步骤卡系统。</p>
+      </div>
+    </section>
+
+    <section id="s017" class="clip scene component-screen" data-component="ScreenWithPip" data-scene-type="screen_demo_pip" data-start="102.867" data-duration="6.599999999999994" data-track-index="10">
+      <div class="screen-stage">
+        <div class="todo-slot screen-video"><div>TODO VIDEO ASSET</div><small>screen_doc_search_plus_duix_pip</small></div>
+        <div class="screen-label">Official docs search</div>
+      </div>
+      <div class="todo-slot pip"><div>TODO VIDEO ASSET</div><small>screen_doc_search_plus_duix_pip</small></div>
+    </section>
+
+    <section id="s018" class="clip scene component-step" data-component="StepCard" data-scene-type="step_card" data-start="109.467" data-duration="8.832999999999998" data-track-index="10">
+      <div class="chip">步骤节点</div>
+      <div class="step-card">
+        <span>READY TO RENDER</span>
+        <h1>Step 03 environment check</h1>
+        <p>该段只使用 2 分钟模板里的暗色步骤卡系统。</p>
+      </div>
+    </section>
+
+    <section id="s019" class="clip scene component-screen" data-component="ScreenWithPip" data-scene-type="screen_demo_pip" data-start="118.3" data-duration="7.367000000000004" data-track-index="10">
+      <div class="screen-stage">
+        <div class="todo-slot screen-video"><div>TODO VIDEO ASSET</div><small>screen_env_check_plus_duix_pip</small></div>
+        <div class="screen-label">Environment check proof</div>
+      </div>
+      <div class="todo-slot pip"><div>TODO VIDEO ASSET</div><small>screen_env_check_plus_duix_pip</small></div>
+    </section>
+
+    <section id="s020" class="clip scene component-step" data-component="StepCard" data-scene-type="step_card" data-start="125.667" data-duration="8.966000000000008" data-track-index="10">
+      <div class="chip">步骤节点</div>
+      <div class="step-card">
+        <span>READY TO RENDER</span>
+        <h1>Step 04 init project</h1>
+        <p>该段只使用 2 分钟模板里的暗色步骤卡系统。</p>
+      </div>
+    </section>
+
+    <section id="s021" class="clip scene component-screen" data-component="ScreenWithPip" data-scene-type="screen_demo_pip" data-start="134.633" data-duration="14.133999999999986" data-track-index="10">
+      <div class="screen-stage">
+        <div class="todo-slot screen-video"><div>TODO VIDEO ASSET</div><small>screen_project_tree_plus_duix_pip</small></div>
+        <div class="screen-label">Project tree proof</div>
+      </div>
+      <div class="todo-slot pip"><div>TODO VIDEO ASSET</div><small>screen_project_tree_plus_duix_pip</small></div>
+    </section>
+
+    <section id="s022" class="clip scene component-step" data-component="StepCard" data-scene-type="step_card" data-start="148.767" data-duration="14.966000000000008" data-track-index="10">
+      <div class="chip">步骤节点</div>
+      <div class="step-card">
+        <span>READY TO RENDER</span>
+        <h1>Step 05 DESIGN.md</h1>
+        <p>该段只使用 2 分钟模板里的暗色步骤卡系统。</p>
+      </div>
+    </section>
+
+    <section id="s023" class="clip scene component-screen" data-component="ScreenWithPip" data-scene-type="screen_demo_pip" data-start="163.733" data-duration="26.533999999999992" data-track-index="10">
+      <div class="screen-stage">
+        <div class="todo-slot screen-video"><div>TODO VIDEO ASSET</div><small>screen_studio_preview_plus_duix_pip</small></div>
+        <div class="screen-label">Generated files and studio preview</div>
+      </div>
+      <div class="todo-slot pip"><div>TODO VIDEO ASSET</div><small>screen_studio_preview_plus_duix_pip</small></div>
+    </section>
+
+    <section id="s024" class="clip scene component-split" data-component="SplitTextPresenter" data-scene-type="concept_split" data-start="190.267" data-duration="8.165999999999997" data-track-index="10">
+      <div class="chip">概念解释</div>
+      <div class="split-panel">
+        <div class="kicker">DESIGNED FOR</div>
+        <h1>Result evaluation</h1>
+        <p>沿用 2 分钟模版的强左信息栏和右侧视频栏。</p>
+        
+    <div class="hud-cards">
+      <div class="hud-card"><span>AI</span><strong>Result evaluation</strong></div>
+      <div class="hud-card"><span>&lt;&gt;</span><strong>直接改代码</strong></div>
+    </div>
+        <div class="progress-line"><i></i><b></b></div>
+      </div>
+      <div class="split-video-frame"><div class="todo-slot split"><div>TODO VIDEO ASSET</div><small>duix_result_eval_presenter</small></div></div>
+    </section>
+
+    <section id="s025" class="clip scene component-screen" data-component="ScreenWithPip" data-scene-type="screen_demo_pip" data-start="198.433" data-duration="26.23400000000001" data-track-index="10">
+      <div class="screen-stage">
+        <div class="todo-slot screen-video"><div>TODO VIDEO ASSET</div><small>screen_official_workflow_plus_duix_pip</small></div>
+        <div class="screen-label">Official workflow docs</div>
+      </div>
+      <div class="todo-slot pip"><div>TODO VIDEO ASSET</div><small>screen_official_workflow_plus_duix_pip</small></div>
+    </section>
+
+    <section id="s026" class="clip scene component-screen" data-component="ScreenWithPip" data-scene-type="screen_demo_pip" data-start="224.667" data-duration="23.599999999999994" data-track-index="10">
+      <div class="screen-stage">
+        <div class="todo-slot screen-video"><div>TODO VIDEO ASSET</div><small>screen_design_tool_plus_duix_pip</small></div>
+        <div class="screen-label">Design tool input and generation</div>
+      </div>
+      <div class="todo-slot pip"><div>TODO VIDEO ASSET</div><small>screen_design_tool_plus_duix_pip</small></div>
+    </section>
+
+    <section id="s027" class="clip scene component-proof" data-component="ProofMontage" data-scene-type="proof_montage" data-start="248.267" data-duration="19.833000000000027" data-track-index="10">
+      <div class="chip">结果证明</div>
+      <h1>Design result fast cuts</h1>
+      <div class="proof-stage"><div class="todo-slot proof"><div>TODO VIDEO ASSET</div><small>proof_design_results_video</small></div></div>
+    </section>
+
+    <section id="s028" class="clip scene component-screen" data-component="ScreenWithPip" data-scene-type="screen_demo_pip" data-start="268.1" data-duration="14.666999999999973" data-track-index="10">
+      <div class="screen-stage">
+        <div class="todo-slot screen-video"><div>TODO VIDEO ASSET</div><small>screen_import_assets_plus_duix_pip</small></div>
+        <div class="screen-label">Import design assets</div>
+      </div>
+      <div class="todo-slot pip"><div>TODO VIDEO ASSET</div><small>screen_import_assets_plus_duix_pip</small></div>
+    </section>
+
+    <section id="s029" class="clip scene component-step" data-component="StepCard" data-scene-type="step_card" data-start="282.767" data-duration="4.432999999999993" data-track-index="10">
+      <div class="chip">步骤节点</div>
+      <div class="step-card">
+        <span>READY TO RENDER</span>
+        <h1>Script and SRT</h1>
+        <p>该段只使用 2 分钟模板里的暗色步骤卡系统。</p>
+      </div>
+    </section>
+
+    <section id="s030" class="clip scene component-screen" data-component="ScreenWithPip" data-scene-type="screen_demo_pip" data-start="287.2" data-duration="35.56700000000001" data-track-index="10">
+      <div class="screen-stage">
+        <div class="todo-slot screen-video"><div>TODO VIDEO ASSET</div><small>screen_srt_script_plus_duix_pip</small></div>
+        <div class="screen-label">SRT and script document</div>
+      </div>
+      <div class="todo-slot pip"><div>TODO VIDEO ASSET</div><small>screen_srt_script_plus_duix_pip</small></div>
+    </section>
+
+    <section id="s031" class="clip scene component-split" data-component="SplitTextPresenter" data-scene-type="concept_split" data-start="322.767" data-duration="35.865999999999985" data-track-index="10">
+      <div class="chip">概念解释</div>
+      <div class="split-panel">
+        <div class="kicker">DESIGNED FOR</div>
+        <h1>Storyboard.md</h1>
+        <p>沿用 2 分钟模版的强左信息栏和右侧视频栏。</p>
+        
+    <div class="hud-cards">
+      <div class="hud-card"><span>AI</span><strong>Storyboard.md</strong></div>
+      <div class="hud-card"><span>&lt;&gt;</span><strong>直接改代码</strong></div>
+    </div>
+        <div class="progress-line"><i></i><b></b></div>
+      </div>
+      <div class="split-video-frame"><div class="todo-slot split"><div>TODO VIDEO ASSET</div><small>duix_storyboard_presenter</small></div></div>
+    </section>
+
+    <section id="s032" class="clip scene component-split" data-component="SplitTextPresenter" data-scene-type="concept_split" data-start="358.633" data-duration="12.200000000000045" data-track-index="10">
+      <div class="chip">概念解释</div>
+      <div class="split-panel">
+        <div class="kicker">DESIGNED FOR</div>
+        <h1>Workflow recap</h1>
+        <p>沿用 2 分钟模版的强左信息栏和右侧视频栏。</p>
+        
+    <div class="hud-cards">
+      <div class="hud-card"><span>AI</span><strong>Workflow recap</strong></div>
+      <div class="hud-card"><span>&lt;&gt;</span><strong>直接改代码</strong></div>
+    </div>
+        <div class="progress-line"><i></i><b></b></div>
+      </div>
+      <div class="split-video-frame"><div class="todo-slot split"><div>TODO VIDEO ASSET</div><small>duix_workflow_recap_presenter</small></div></div>
+    </section>
+
+    <section id="s033" class="clip scene component-hero" data-component="SummaryCta" data-scene-type="summary_cta" data-start="370.833" data-duration="19.936999999999955" data-track-index="10">
+      <div class="todo-slot hero"><div>TODO VIDEO ASSET</div><small>duix_final_cta_aroll</small></div>
+      <div class="hero-overlay"><strong>Final CTA</strong></div>
+    </section>
+      
+      
+    </div>
+    <script>
+      window.__timelines = window.__timelines || {};
+      const tl = gsap.timeline({ paused: true });
+      document.querySelectorAll(".scene").forEach((scene) => {
+        const start = Number(scene.dataset.start);
+        tl.from(scene.querySelectorAll(".split-panel, .split-video-frame, .screen-stage, .pip-frame, .title-card, .step-card, .proof-stage, .stat-shell, .hero-overlay"), {
+          opacity: 0,
+          y: 24,
+          duration: 0.36,
+          stagger: 0.08,
+          ease: "power3.out",
+          overwrite: "auto"
+        }, start + 0.12);
+      });
+      window.__timelines.main = tl;
+    </script>
+  </body>
+</html>

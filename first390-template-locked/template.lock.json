@@ -1,0 +1,158 @@
+{
+  "template": "hyperframes-tech-talk-390-v1-locked",
+  "inherits_from": "first120-template-duix",
+  "visual_source_of_truth": "first120-template-duix/index.html",
+  "reference_video": "video-template-analysis/source.mp4",
+  "duration": 390.77,
+  "width": 1920,
+  "height": 1080,
+  "fps": 30,
+  "allowed_components": [
+    "HeroAroll",
+    "StatsHero",
+    "TitleCard",
+    "SplitTextPresenter",
+    "ScreenWithPip",
+    "StepCard",
+    "ProofMontage",
+    "SummaryCta"
+  ],
+  "scene_type_contracts": {
+    "hook_stat": {
+      "component": "StatsHero",
+      "purpose": "opening statistic and browser-card impact"
+    },
+    "title_card": {
+      "component": "TitleCard",
+      "purpose": "chapter or concept transition on unified dark honeycomb background"
+    },
+    "concept_split": {
+      "component": "SplitTextPresenter",
+      "purpose": "concept explanation, question, comparison, or key claim",
+      "forbidden": ["circular_pip_as_main_presenter", "empty_hud_circle"]
+    },
+    "screen_demo_pip": {
+      "component": "ScreenWithPip",
+      "purpose": "screen recording or operation demo as the main subject with moving circular PIP helper",
+      "allowed": ["circular_pip"],
+      "forbidden": ["second_empty_circle", "empty_hud_ring", "static_screen_as_video"]
+    },
+    "aroll_emphasis": {
+      "component": "HeroAroll",
+      "purpose": "full-screen presenter emphasis or short transition"
+    },
+    "step_card": {
+      "component": "StepCard",
+      "purpose": "short dark instructional step marker"
+    },
+    "proof_montage": {
+      "component": "ProofMontage",
+      "purpose": "real result/proof fast cuts"
+    },
+    "summary_cta": {
+      "component": "SummaryCta",
+      "purpose": "final recap or call to action"
+    }
+  },
+  "component_contracts": {
+    "HeroAroll": {
+      "video_required": true,
+      "layout": "full-bleed-presenter-video",
+      "audio_rule": "muted_if_duix; final_audio_from_master"
+    },
+    "StatsHero": {
+      "video_required": true,
+      "layout": "accepted-0-10s-stat-browser-entry",
+      "audio_rule": "muted_if_duix; final_audio_from_master"
+    },
+    "TitleCard": {
+      "video_required": false,
+      "layout": "accepted-dark-honeycomb-title",
+      "forbidden": ["presenter-background-slice", "viewfinder-corners"]
+    },
+    "SplitTextPresenter": {
+      "video_required": true,
+      "layout": "accepted-split-v1",
+      "css_variables_required": [
+        "--split-x",
+        "--split-left",
+        "--split-gap",
+        "--split-video",
+        "--split-total",
+        "--split-top",
+        "--split-height"
+      ],
+      "right_video_rule": "portrait video fills frame, no black band, centered face and shoulders"
+    },
+    "ScreenWithPip": {
+      "video_required": true,
+      "layout": "foreground-screen-recording-plus-moving-pip",
+      "layer_rule": "one background layer plus one foreground subject layer"
+    },
+    "StepCard": {
+      "video_required": false,
+      "layout": "accepted-dark-step-card"
+    },
+    "ProofMontage": {
+      "video_required": true,
+      "layout": "fast-proof-cuts-using-real-screen-or-result-video"
+    },
+    "SummaryCta": {
+      "video_required": true,
+      "layout": "final-aroll-or-split-summary"
+    }
+  },
+  "forbidden_in_render_html": [
+    "FULL A-ROLL PRESENTER VIDEO",
+    "PRESENTER",
+    "placeholder presenter",
+    "fake pip",
+    "random screen box",
+    "viewfinder corners",
+    "screen-box",
+    "proof-grid",
+    "empty-circle",
+    "empty hud",
+    "decorative circle",
+    "second-empty-circle",
+    "hud-orb",
+    "courseware-circle",
+    "presenter-full::after",
+    "presenter-rect::after",
+    "pip::after"
+  ],
+  "global_audio_contract": {
+    "type": "single_continuous_master_audio",
+    "audio_manifest": "data/audio-manifest.json",
+    "duix_jobs_manifest": "data/duix-jobs-manifest.json",
+    "production_order": "script -> master_audio -> ASR -> captions -> burned_caption_clips -> DUIX_slice_map -> DUIX_videos -> visuals -> final_mux",
+    "duix_video_audio": "muted",
+    "caption_source": "ASR from final master audio",
+    "caption_render_rule": "caption JSON alone is not final; final index.html must include visible burned-in .caption-line clips",
+    "forbidden": ["audio from individual DUIX slots", "hand-timed captions after speed change", "source.mp4 audio as final master", "final render with no visible subtitle clips"]
+  },
+  "acceptance_gates": [
+    "audio-manifest-complete-for-final",
+    "full-script-exists-for-final",
+    "master-audio-exists-for-final",
+    "asr-json-exists-for-final",
+    "caption-timeline-exists-for-final",
+    "burned-caption-clips-exist-for-final",
+    "duix-slice-map-exists-for-final",
+    "duix-jobs-manifest-complete-for-final",
+    "duix-asset-has-job-record",
+    "duix-job-has-source-plate-and-dub-wav",
+    "duix-job-completion-rule-status-2-progress-100",
+    "scene-type-valid",
+    "scene-type-component-match",
+    "scene-map-valid",
+    "asset-manifest-complete-or-explicit-todo",
+    "no-forbidden-html",
+    "video-slots-use-video-tags",
+    "duix-videos-muted",
+    "lint-0-errors",
+    "inspect-0-layout-issues",
+    "contact-sheet-reviewed",
+    "video-motion-check-reviewed"
+  ]
+}

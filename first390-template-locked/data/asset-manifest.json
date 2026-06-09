@@ -1,0 +1,208 @@
+{
+  "rule": "Template mode does not commit generated videos. Every conceptual video slot starts as TODO and must be replaced by a real moving mp4 before final render.",
+  "assets": {
+    "duix_intro_first10": {
+      "type": "duix_video",
+      "path": "assets/duix_intro_first10.mp4",
+      "status": "todo",
+      "muted": true,
+      "template_placeholder": true,
+      "example_path": "../first120-template-duix/assets/duix-intro-first10.mp4"
+    },
+    "duix_intro_browser_card": {
+      "type": "duix_video",
+      "path": "assets/duix_intro_browser_card.mp4",
+      "status": "todo",
+      "muted": true,
+      "template_placeholder": true,
+      "example_path": "../first120-template-duix/assets/duix-intro-browser-card.mp4"
+    },
+    "duix_course_presenter": {
+      "type": "duix_video",
+      "path": "assets/duix_course_presenter.mp4",
+      "status": "todo",
+      "muted": true,
+      "template_placeholder": true,
+      "example_path": "../first120-template-duix/assets/duix-course-presenter.mp4"
+    },
+    "duix_question_presenter": {
+      "type": "duix_video",
+      "path": "assets/duix_question_presenter.mp4",
+      "status": "todo",
+      "muted": true,
+      "template_placeholder": true,
+      "example_path": "../first120-template-duix/assets/duix-question-presenter.mp4"
+    },
+    "duix_cta_aroll": {
+      "type": "duix_video",
+      "path": "assets/duix_cta_aroll.mp4",
+      "status": "todo",
+      "muted": true,
+      "template_placeholder": true,
+      "example_path": "../first120-template-duix/assets/duix-cta-aroll.mp4"
+    },
+    "duix_def_open_presenter": {
+      "type": "duix_video",
+      "path": "assets/duix_def_open_presenter.mp4",
+      "status": "todo",
+      "muted": true,
+      "template_placeholder": true,
+      "example_path": "../first120-template-duix/assets/duix-def-open-presenter.mp4"
+    },
+    "duix_def_stack_presenter": {
+      "type": "duix_video",
+      "path": "assets/duix_def_stack_presenter.mp4",
+      "status": "todo",
+      "muted": true,
+      "template_placeholder": true,
+      "example_path": "../first120-template-duix/assets/duix-def-stack-presenter.mp4"
+    },
+    "duix_def_flow_presenter": {
+      "type": "duix_video",
+      "path": "assets/duix_def_flow_presenter.mp4",
+      "status": "todo",
+      "muted": true,
+      "template_placeholder": true,
+      "example_path": "../first120-template-duix/assets/duix-def-flow-presenter.mp4"
+    },
+    "duix_def_one_pip": {
+      "type": "duix_video",
+      "path": "assets/duix_def_one_pip.mp4",
+      "status": "todo",
+      "muted": true,
+      "template_placeholder": true,
+      "example_path": "../first120-template-duix/assets/duix-def-one-pip.mp4"
+    },
+    "screen_prompt_plus_duix_pip": {
+      "type": "screen_recording_with_duix_pip",
+      "path": "assets/screen_prompt_plus_duix_pip.mp4",
+      "status": "todo",
+      "muted": true,
+      "template_placeholder": true,
+      "example_path": "../first120-template-duix/assets/duix-prompt-pip.mp4"
+    },
+    "screen_agent_log_plus_duix_pip": {
+      "type": "screen_recording_with_duix_pip",
+      "path": "assets/screen_agent_log_plus_duix_pip.mp4",
+      "status": "todo",
+      "muted": true,
+      "template_placeholder": true,
+      "example_path": "../first120-template-duix/assets/duix-agent-log-pip.mp4"
+    },
+    "screen_doc_search_plus_duix_pip": {
+      "type": "screen_recording_with_duix_pip",
+      "path": "assets/screen_doc_search_plus_duix_pip.mp4",
+      "status": "todo",
+      "muted": true,
+      "template_placeholder": true,
+      "example_path": "../first120-template-duix/assets/duix-doc-search-pip.mp4"
+    },
+    "screen_env_check_plus_duix_pip": {
+      "type": "screen_recording_with_duix_pip",
+      "path": "assets/screen_env_check_plus_duix_pip.mp4",
+      "status": "todo",
+      "muted": true,
+      "template_placeholder": true,
+      "example_path": "../first120-template-duix/assets/duix-env-check-pip.mp4"
+    },
+    "screen_project_tree_plus_duix_pip": {
+      "type": "screen_recording_with_duix_pip",
+      "path": "assets/screen_project_tree_plus_duix_pip.mp4",
+      "status": "todo",
+      "muted": true,
+      "needed_for": "134.633-148.767",
+      "template_placeholder": true,
+      "example_path": "production/duix-results/gop30/hf390_screen_project_tree_plus_duix_pip_v1-r.mp4"
+    },
+    "screen_studio_preview_plus_duix_pip": {
+      "type": "screen_recording_with_duix_pip",
+      "path": "assets/screen_studio_preview_plus_duix_pip.mp4",
+      "status": "todo",
+      "muted": true,
+      "needed_for": "163.733-190.267",
+      "template_placeholder": true,
+      "example_path": "production/duix-results/gop30/hf390_screen_studio_preview_plus_duix_pip_v1-r.mp4"
+    },
+    "duix_result_eval_presenter": {
+      "type": "duix_video",
+      "path": "assets/duix_result_eval_presenter.mp4",
+      "status": "todo",
+      "muted": true,
+      "needed_for": "190.267-198.433",
+      "template_placeholder": true,
+      "example_path": "production/duix-results/gop30/hf390_duix_result_eval_presenter_v1-r.mp4"
+    },
+    "screen_official_workflow_plus_duix_pip": {
+      "type": "screen_recording_with_duix_pip",
+      "path": "assets/screen_official_workflow_plus_duix_pip.mp4",
+      "status": "todo",
+      "muted": true,
+      "needed_for": "198.433-224.667",
+      "template_placeholder": true,
+      "example_path": "production/duix-results/gop30/hf390_screen_official_workflow_plus_duix_pip_v1-r.mp4"
+    },
+    "screen_design_tool_plus_duix_pip": {
+      "type": "screen_recording_with_duix_pip",
+      "path": "assets/screen_design_tool_plus_duix_pip.mp4",
+      "status": "todo",
+      "muted": true,
+      "needed_for": "224.667-248.267",
+      "template_placeholder": true,
+      "example_path": "production/duix-results/gop30/hf390_screen_design_tool_plus_duix_pip_v1-r.mp4"
+    },
+    "proof_design_results_video": {
+      "type": "proof_montage_video",
+      "path": "assets/proof_design_results_video.mp4",
+      "status": "todo",
+      "muted": true,
+      "needed_for": "248.267-268.1",
+      "template_placeholder": true,
+      "example_path": "production/proof/gop30/proof-design-results-video.mp4"
+    },
+    "screen_import_assets_plus_duix_pip": {
+      "type": "screen_recording_with_duix_pip",
+      "path": "assets/screen_import_assets_plus_duix_pip.mp4",
+      "status": "todo",
+      "muted": true,
+      "needed_for": "268.1-282.767",
+      "template_placeholder": true,
+      "example_path": "production/duix-results/gop30/hf390_screen_import_assets_plus_duix_pip_v1-r.mp4"
+    },
+    "screen_srt_script_plus_duix_pip": {
+      "type": "screen_recording_with_duix_pip",
+      "path": "assets/screen_srt_script_plus_duix_pip.mp4",
+      "status": "todo",
+      "muted": true,
+      "needed_for": "287.2-322.767",
+      "template_placeholder": true,
+      "example_path": "production/duix-results/gop30/hf390_screen_srt_script_plus_duix_pip_v1-r.mp4"
+    },
+    "duix_storyboard_presenter": {
+      "type": "duix_video",
+      "path": "assets/duix_storyboard_presenter.mp4",
+      "status": "todo",
+      "muted": true,
+      "needed_for": "322.767-358.633",
+      "template_placeholder": true,
+      "example_path": "production/duix-results/gop30/hf390_duix_storyboard_presenter_v1-r.mp4"
+    },
+    "duix_workflow_recap_presenter": {
+      "type": "duix_video",
+      "path": "assets/duix_workflow_recap_presenter.mp4",
+      "status": "todo",
+      "muted": true,
+      "needed_for": "358.633-370.833",
+      "template_placeholder": true,
+      "example_path": "production/duix-results/gop30/hf390_duix_workflow_recap_presenter_v1-r.mp4"
+    },
+    "duix_final_cta_aroll": {
+      "type": "duix_video",
+      "path": "assets/duix_final_cta_aroll.mp4",
+      "status": "todo",
+      "muted": true,
+      "needed_for": "370.833-390.77",
+      "template_placeholder": true,
+      "example_path": "production/duix-results/gop30/hf390_duix_final_cta_aroll_v1-r.mp4"
+    }
+  }
+}

@@ -1,0 +1,17 @@
+{
+  "name": "first390-template-locked",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "validate:template": "node scripts/validate-template.mjs",
+    "validate:final": "node scripts/validate-template.mjs --final",
+    "asr:funasr": "node scripts/funasr_transcribe.mjs production/audio/duix-first390-master-accepted120-tail-v1.wav production/full-script-390-v4.txt production/audio/funasr-accepted120-tail-v1.raw.json production/audio/captions-accepted120-tail-v1.json",
+    "build:duix-slices": "node scripts/build-duix-slice-map.mjs",
+    "prepare:duix-jobs": "node scripts/prepare-duix-jobs.mjs",
+    "submit:duix-jobs": "node scripts/submit-prepared-duix-jobs.mjs",
+    "generate:preview": "node scripts/generate-preview.mjs",
+    "generate:verify390-tail": "node scripts/generate-preview.mjs --verify-tail",
+    "generate:tail-final": "node scripts/generate-preview.mjs --tail-final",
+    "check": "node scripts/validate-template.mjs && npx --yes hyperframes@0.6.79 lint && npx --yes hyperframes@0.6.79 inspect --at 4,16,48,105,160,210,260,310,360,385 --timeout 180000"
+  }
+}

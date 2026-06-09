@@ -1,0 +1,42 @@
+{
+  "rule": "Template mode is audio-first but does not commit generated audio. Before final render, generate a continuous master audio, run FunASR, create captions, and build the DUIX slice map; then change required items from todo to exists.",
+  "source_audio_policy": "source.mp4 audio is analysis/reference only; it is not the final master audio for the new template.",
+  "items": {
+    "full_script": {
+      "type": "script",
+      "path": "production/full-script-390-v4.txt",
+      "status": "todo",
+      "required_for_final": true
+    },
+    "master_audio": {
+      "type": "continuous_master_audio",
+      "path": "production/audio/duix-first390-master-accepted120-tail-v1.wav",
+      "preview_path": "production/audio/duix-first390-master-accepted120-tail-v1.m4a",
+      "composition_policy": "0-120s is the accepted first120 reference audio; 120-390.77s is the new CosyVoice tail audio.",
+      "status": "todo",
+      "required_for_final": true
+    },
+    "asr_json": {
+      "type": "asr_from_master_audio",
+      "path": "production/audio/funasr-accepted120-tail-v1.raw.json",
+      "engine": "FunASR paraformer-zh + fsmn-vad + ct-punc",
+      "status": "todo",
+      "required_for_final": true
+    },
+    "caption_timeline": {
+      "type": "captions_from_asr",
+      "path": "production/audio/captions-accepted120-tail-v1.json",
+      "timing_source": "FunASR sentence timestamps",
+      "text_source": "production/full-script-390-v4.txt",
+      "status": "todo",
+      "required_for_final": true
+    },
+    "duix_slice_map": {
+      "type": "duix_slices_from_master_audio",
+      "path": "production/audio/duix-slice-map-accepted120-tail-v1.json",
+      "slice_dir": "production/audio/duix-slices-accepted120-tail-v1",
+      "status": "todo",
+      "required_for_final": true
+    }
+  }
+}

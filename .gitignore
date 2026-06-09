@@ -1,0 +1,28 @@
+.DS_Store
+**/__pycache__/
+*.pyc
+
+# This is a reusable template repository, not a media archive.
+# Keep generated/large media out of Git. Store accepted renders and DUIX outputs
+# locally or in GitHub Releases/object storage when needed.
+*.mp4
+*.mov
+*.m4a
+*.wav
+*.tgz
+
+# Small visual references are allowed.
+!*.jpg
+!*.jpeg
+!*.png
+
+# HyperFrames render caches and intermediate assembly files.
+first390-template-locked/render/work-*/
+first390-template-locked/render/assemble*/
+
+# Keep only the final QA sheet by default.
+first390-template-locked/audit/final-v1/
+first390-template-locked/audit/final-v2/
+first390-template-locked/audit/final-v3/
+first390-template-locked/audit/motion/
+first390-template-locked/audit/subtitle-fix/

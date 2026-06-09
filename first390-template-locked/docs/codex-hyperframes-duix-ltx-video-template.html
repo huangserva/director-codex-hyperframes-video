@@ -1,0 +1,440 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Codex+Hyperframes+Duix+LTX 视频生成项目模版</title>
+  <style>
+    :root {
+      --bg: #07090c;
+      --panel: rgba(16, 21, 27, 0.82);
+      --panel-2: rgba(11, 15, 20, 0.92);
+      --line: rgba(225, 186, 93, 0.34);
+      --line-soft: rgba(255, 255, 255, 0.1);
+      --gold: #f3c75f;
+      --blue: #19a8e8;
+      --text: #f5f1e5;
+      --muted: #aeb6bf;
+      --danger: #ff7777;
+      --ok: #66df9b;
+      --warn: #ffd36a;
+      --code: #d8e9ff;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      color: var(--text);
+      background:
+        radial-gradient(circle at 22% 12%, rgba(243, 199, 95, 0.13), transparent 28%),
+        radial-gradient(circle at 80% 28%, rgba(25, 168, 232, 0.12), transparent 24%),
+        linear-gradient(180deg, #090b0f, #030405 70%);
+      min-height: 100vh;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      opacity: 0.18;
+      background-image:
+        linear-gradient(30deg, rgba(255,255,255,.18) 12%, transparent 12.5%, transparent 87%, rgba(255,255,255,.18) 87.5%, rgba(255,255,255,.18)),
+        linear-gradient(150deg, rgba(255,255,255,.18) 12%, transparent 12.5%, transparent 87%, rgba(255,255,255,.18) 87.5%, rgba(255,255,255,.18));
+      background-size: 94px 162px;
+      mask-image: linear-gradient(180deg, black, transparent 86%);
+    }
+
+    a { color: inherit; }
+    code {
+      color: var(--code);
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 6px;
+      padding: 0.12rem 0.38rem;
+      font-size: 0.92em;
+    }
+
+    .wrap {
+      position: relative;
+      width: min(1180px, calc(100vw - 48px));
+      margin: 0 auto;
+      padding: 42px 0 64px;
+    }
+
+    header {
+      padding: 34px 36px;
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      background: linear-gradient(135deg, rgba(19, 25, 32, .9), rgba(8, 10, 13, .92));
+      box-shadow: 0 0 42px rgba(243, 199, 95, .08), inset 0 0 90px rgba(25,168,232,.05);
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      color: var(--gold);
+      font-weight: 800;
+      letter-spacing: .02em;
+      text-transform: uppercase;
+      font-size: 13px;
+    }
+
+    .eyebrow::before {
+      content: "";
+      width: 9px;
+      height: 9px;
+      border-radius: 50%;
+      background: var(--blue);
+      box-shadow: 0 0 18px var(--blue);
+    }
+
+    h1 {
+      margin: 16px 0 12px;
+      font-size: clamp(34px, 5vw, 58px);
+      line-height: 1.08;
+      letter-spacing: 0;
+    }
+
+    .summary {
+      max-width: 900px;
+      color: #d6dbdf;
+      font-size: 18px;
+      line-height: 1.75;
+    }
+
+    .meta-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 14px;
+      margin-top: 28px;
+    }
+
+    .metric {
+      padding: 16px 18px;
+      border: 1px solid var(--line-soft);
+      border-radius: 12px;
+      background: rgba(255,255,255,.045);
+    }
+
+    .metric b {
+      display: block;
+      color: var(--gold);
+      font-size: 22px;
+      margin-bottom: 5px;
+    }
+
+    .metric span { color: var(--muted); font-size: 13px; }
+
+    section {
+      margin-top: 28px;
+      padding: 28px;
+      border: 1px solid var(--line-soft);
+      border-radius: 16px;
+      background: var(--panel);
+      backdrop-filter: blur(10px);
+    }
+
+    h2 {
+      margin: 0 0 18px;
+      color: var(--gold);
+      font-size: 26px;
+    }
+
+    h3 {
+      margin: 26px 0 12px;
+      color: #fff6df;
+      font-size: 19px;
+    }
+
+    .flow {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 10px;
+      counter-reset: flow;
+    }
+
+    .flow .step {
+      position: relative;
+      min-height: 126px;
+      padding: 16px;
+      border: 1px solid rgba(243, 199, 95, .24);
+      border-radius: 12px;
+      background: rgba(0,0,0,.28);
+    }
+
+    .step::before {
+      counter-increment: flow;
+      content: counter(flow, decimal-leading-zero);
+      display: inline-block;
+      color: var(--blue);
+      font-weight: 900;
+      margin-bottom: 10px;
+    }
+
+    .step strong { display: block; margin-bottom: 8px; }
+    .step p { margin: 0; color: var(--muted); line-height: 1.55; font-size: 14px; }
+
+    .file-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 14px;
+    }
+
+    .file {
+      padding: 16px;
+      border: 1px solid var(--line-soft);
+      border-radius: 12px;
+      background: rgba(0,0,0,.24);
+    }
+
+    .file .name {
+      display: flex;
+      align-items: center;
+      gap: 9px;
+      color: #ffffff;
+      font-weight: 800;
+      word-break: break-word;
+    }
+
+    .tag {
+      display: inline-flex;
+      align-items: center;
+      border: 1px solid rgba(25,168,232,.35);
+      border-radius: 999px;
+      color: var(--blue);
+      padding: 2px 8px;
+      font-size: 12px;
+      font-weight: 800;
+      white-space: nowrap;
+    }
+
+    .file p {
+      margin: 10px 0 12px;
+      color: #c8d0d6;
+      line-height: 1.6;
+    }
+
+    .mtime {
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    .rules {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14px;
+    }
+
+    .rule {
+      padding: 16px;
+      border-radius: 12px;
+      background: var(--panel-2);
+      border: 1px solid var(--line-soft);
+    }
+
+    .rule strong { color: var(--gold); display: block; margin-bottom: 8px; }
+    .rule p { margin: 0; color: #cbd2d8; line-height: 1.65; }
+
+    .status {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 14px;
+    }
+
+    .status-card {
+      border-radius: 12px;
+      border: 1px solid var(--line-soft);
+      background: rgba(0,0,0,.22);
+      padding: 16px;
+    }
+
+    .status-card b { display: block; margin-bottom: 8px; }
+    .status-card.ok b { color: var(--ok); }
+    .status-card.warn b { color: var(--warn); }
+    .status-card.fail b { color: var(--danger); }
+    .status-card p { margin: 0; color: #cbd2d8; line-height: 1.6; }
+
+    .commands {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 12px;
+    }
+
+    pre {
+      margin: 0;
+      white-space: pre-wrap;
+      word-break: break-word;
+      border: 1px solid rgba(255,255,255,.1);
+      border-radius: 12px;
+      background: #050608;
+      color: #dbeafe;
+      padding: 16px;
+      line-height: 1.6;
+    }
+
+    footer {
+      color: var(--muted);
+      text-align: center;
+      margin-top: 26px;
+      font-size: 13px;
+    }
+
+    @media (max-width: 900px) {
+      .meta-grid, .flow, .rules, .status, .commands, .file-grid {
+        grid-template-columns: 1fr;
+      }
+      .wrap { width: min(100vw - 28px, 1180px); padding-top: 20px; }
+      header, section { padding: 22px; }
+    }
+  </style>
+</head>
+<body>
+  <main class="wrap">
+    <header>
+      <div class="eyebrow">Project Template Overview</div>
+      <h1>Codex+Hyperframes+Duix+LTX 视频生成项目模版</h1>
+      <p class="summary">
+        这是给人看的项目总览页：说明 390s 视频模板的文件结构、每个文件职责、storyboard 先行、声音先行流程、FunASR 字幕、DUIX/HeyGem 调用闭环、HyperFrames 生成与校验规则，以及当前项目状态。核心目标是避免再次跳过台词、声音、字幕、口型和版式 gate。
+      </p>
+      <div class="meta-grid">
+        <div class="metric"><b>390.77s</b><span>目标视频长度</span></div>
+        <div class="metric"><b>Storyboard First</b><span>先分镜台词</span></div>
+        <div class="metric"><b>DUIX Gate</b><span>口型任务必须闭环</span></div>
+        <div class="metric"><b>GitHub</b><span>huangserva/director-codex-hyperframes-video</span></div>
+      </div>
+    </header>
+
+    <section>
+      <h2>代码仓库</h2>
+      <div class="status">
+        <div class="status-card ok"><b>外部归档入口</b><p><a href="https://github.com/huangserva/director-codex-hyperframes-video">https://github.com/huangserva/director-codex-hyperframes-video</a></p></div>
+        <div class="status-card warn"><b>模板仓库不是素材库</b><p>GitHub 只保留模板规则、storyboard、脚本和轻量参考图；最终渲染、DUIX 结果、WAV 主音轨不进入 Git。</p></div>
+      </div>
+    </section>
+
+    <section>
+      <h2>一、生产流程</h2>
+      <div class="flow">
+        <div class="step"><strong>Storyboard</strong><p>先完成 <code>storyboard.md</code>：完整台词、分镜节奏、场景类型、素材槽、字幕和 DUIX 规则。</p></div>
+        <div class="step"><strong>完整台词</strong><p>从 storyboard 导出全片脚本；不要绕过 storyboard 直接改 HTML。</p></div>
+        <div class="step"><strong>连续主音频</strong><p>最终全片只用一条 master audio：accepted120 原声 + tail TTS。</p></div>
+        <div class="step"><strong>FunASR 字幕</strong><p>字幕时间轴必须来自最终 master audio 的 FunASR，并烧录成可见 caption clips。</p></div>
+        <div class="step"><strong>DUIX 切片</strong><p>从同一条 master audio 切出 dub.wav，驱动 DUIX 口型。</p></div>
+        <div class="step"><strong>场景分类</strong><p>按旁白目的标注 scene_type，再映射到固定组件。</p></div>
+        <div class="step"><strong>真实视频资产</strong><p>所有视频槽必须是真视频；DUIX 输出统一 gop30 重编码后再进入 HyperFrames。</p></div>
+        <div class="step"><strong>HyperFrames 渲染</strong><p>从 scene map 生成 index.html，视频层全部静音。</p></div>
+        <div class="step"><strong>最终混音</strong><p>渲染后用 ffmpeg mux 连续主音频。</p></div>
+        <div class="step"><strong>视觉审查</strong><p>抽帧检查版式、PIP 场景、字幕、视频运动、重复人物和空 HUD。</p></div>
+        <div class="step"><strong>Final Gate</strong><p><code>validate:final</code> 必须通过，否则不能称为最终版。</p></div>
+      </div>
+    </section>
+
+    <section>
+      <h2>二、当前状态</h2>
+      <div class="status">
+        <div class="status-card ok"><b>模板态可校验</b><p><code>npm run validate:template</code> 应通过，并允许 TODO 警告。</p></div>
+        <div class="status-card warn"><b>Final Gate 默认失败</b><p><code>npm run validate:final</code> 必须在真实主音轨、FunASR 字幕、DUIX 输出和视频资产补齐后才能通过。</p></div>
+        <div class="status-card ok"><b>轻量模板仓库</b><p>新 clone 约 2.3M；不跟踪 <code>mp4/wav/m4a/tgz</code>。</p></div>
+        <div class="status-card ok"><b>审查图保留</b><p>保留少量 JPG 参考图和 contact sheet，用于说明视觉标准和历史问题。</p></div>
+      </div>
+    </section>
+
+    <section>
+      <h2>三、390s 模版核心规范文件</h2>
+      <div class="file-grid">
+        <div class="file"><div class="name"><span class="tag">MD</span> README.md</div><p>项目总入口。说明 locked workflow、模板状态、失败验证片不能当成果。</p><div class="mtime">最新修改：2026-06-09</div></div>
+        <div class="file"><div class="name"><span class="tag">MD</span> storyboard.md</div><p>创作源头。包含完整台词、分镜表、场景类型、素材槽、SRT/字幕规则和 DUIX 规则。</p><div class="mtime">最新修改：2026-06-09</div></div>
+        <div class="file"><div class="name"><span class="tag">MD</span> docs/production-rules.md</div><p>生产规则。定义 storyboard 先行、声音先行、DUIX 调用闭环、场景分类、圆形 PIP 使用边界、禁用空 HUD。</p><div class="mtime">最新修改：2026-06-09</div></div>
+        <div class="file"><div class="name"><span class="tag">MD</span> components/component-contracts.md</div><p>版式契约。规定各类 scene_type 对应的组件和限制。</p><div class="mtime">最新修改：2026-06-09 09:27:52 CST</div></div>
+        <div class="file"><div class="name"><span class="tag">JSON</span> template.lock.json</div><p>机器可读锁文件。锁组件、scene type 映射、禁用 token、音频 gate、DUIX job gate。</p><div class="mtime">最新修改：2026-06-09 09:52:38 CST</div></div>
+      </div>
+    </section>
+
+    <section>
+      <h2>四、390s 生产数据表</h2>
+      <div class="file-grid">
+        <div class="file"><div class="name"><span class="tag">JSON</span> data/audio-manifest.json</div><p>声音先行 gate。记录 accepted120+tail master audio、FunASR raw、caption timeline、DUIX slice map。</p><div class="mtime">最新修改：2026-06-09 11:58:06 CST</div></div>
+        <div class="file"><div class="name"><span class="tag">JSON</span> data/duix-jobs-manifest.json</div><p>DUIX 调用闭环。记录 10 个 DUIX 资产的 slice、job id、source plate、dub.wav、container path、输出 mp4、状态。</p><div class="mtime">最新修改：2026-06-09 13:12:25 CST</div></div>
+        <div class="file"><div class="name"><span class="tag">JSON</span> data/asset-manifest.json</div><p>视频资产表。最终资产指向 gop30 DUIX 结果和 proof montage，视频层必须 muted。</p><div class="mtime">最新修改：2026-06-09 13:24:29 CST</div></div>
+        <div class="file"><div class="name"><span class="tag">JSON</span> data/scene-map-390.json</div><p>390s 场景表。每段有时间、scene_type、组件、layout、asset slot。</p><div class="mtime">最新修改：2026-06-09 09:31:54 CST</div></div>
+      </div>
+    </section>
+
+    <section>
+      <h2>五、执行与校验文件</h2>
+      <div class="file-grid">
+        <div class="file"><div class="name"><span class="tag">MJS</span> scripts/validate-template.mjs</div><p>核心 validator。检查音频 gate、DUIX job、scene type 映射、资产 TODO、禁用 HTML token，以及 final HTML 是否包含字幕 clips。</p><div class="mtime">最新修改：2026-06-09 15:20:00 CST</div></div>
+        <div class="file"><div class="name"><span class="tag">MJS</span> scripts/generate-preview.mjs</div><p>从 scene map 生成 HyperFrames index.html；tail-final 模式从 120s 开始渲染，使用 clean screen proxy，并烧录 FunASR 字幕。</p><div class="mtime">最新修改：2026-06-09 15:00:00 CST</div></div>
+        <div class="file"><div class="name"><span class="tag">MJS</span> scripts/funasr_transcribe.mjs</div><p>FunASR 转写脚本。使用 paraformer-zh + vad + 标点，从最终 master audio 生成字幕。</p><div class="mtime">最新修改：2026-06-09 12:35:42 CST</div></div>
+        <div class="file"><div class="name"><span class="tag">MJS</span> scripts/build-duix-slice-map.mjs</div><p>按数字人出现时段，从同一条 master audio 切出 DUIX dub.wav 片段。</p><div class="mtime">最新修改：2026-06-09 11:58:06 CST</div></div>
+        <div class="file"><div class="name"><span class="tag">MJS/PY</span> DUIX 提交脚本</div><p><code>prepare-duix-jobs.mjs</code>、<code>submit-prepared-duix-jobs.mjs</code>、<code>remote_run_prepared_duix.py</code> 负责上传、提交、轮询和下载。</p><div class="mtime">最新修改：2026-06-09 13:10:35 CST</div></div>
+        <div class="file"><div class="name"><span class="tag">JSON</span> package.json</div><p>命令入口：asr:funasr、build:duix-slices、prepare:duix-jobs、submit:duix-jobs、generate:tail-final、validate:final。</p><div class="mtime">最新修改：2026-06-09 13:18:36 CST</div></div>
+      </div>
+    </section>
+
+    <section>
+      <h2>六、全局 Skill 和 DUIX 调用</h2>
+      <div class="file-grid">
+        <div class="file"><div class="name"><span class="tag">SKILL</span> hyperframes-tech-talk-template/SKILL.md</div><p>Codex 触发该视频模板时看的主规则。已写入声音先行、场景分类和 390s locked template gate。</p><div class="mtime">最新修改：2026-06-09 09:26:33 CST</div></div>
+        <div class="file"><div class="name"><span class="tag">REF</span> references/duix-cosyvoice-asr-workflow.md</div><p>2 分钟跑通的 CosyVoice + DUIX + ASR 工作流记录。</p><div class="mtime">最新修改：2026-06-08 23:05:46 CST</div></div>
+        <div class="file"><div class="name"><span class="tag">REF</span> references/template-spec.md</div><p>2 分钟视觉规格参考。</p><div class="mtime">最新修改：2026-06-08 22:21:11 CST</div></div>
+        <div class="file"><div class="name"><span class="tag">DUIX</span> duix-heygem-lipsync/SKILL.md</div><p>DUIX/HeyGem 调用入口。</p><div class="mtime">最新修改：2026-06-08 14:21:42 CST</div></div>
+        <div class="file"><div class="name"><span class="tag">API</span> references/api-workflow.md</div><p>DUIX /easy/submit、/easy/query、44.1k mono WAV、完成判据等接口细节。</p><div class="mtime">最新修改：2026-06-08 14:21:42 CST</div></div>
+        <div class="file"><div class="name"><span class="tag">PY</span> scripts/duix_submit_poll.py</div><p>提交和轮询 DUIX job 的脚本。</p><div class="mtime">最新修改：2026-06-08 14:21:42 CST</div></div>
+      </div>
+    </section>
+
+    <section>
+      <h2>七、当前产物</h2>
+      <div class="file-grid">
+        <div class="file"><div class="name"><span class="tag">MP4</span> render/first390-final-accepted120-tail-v4-subtitled.mp4</div><p>当前 390s 最终验证片。前 120s 使用已验收视频，120s 后使用新 tail-final 渲染，最终 mux 一条 master audio，并烧录 FunASR 字幕。</p><div class="mtime">最新修改：2026-06-09 15:18:00 CST</div></div>
+        <div class="file"><div class="name"><span class="tag">JPG</span> audit/final-v4-subtitled/contact-sheet.jpg</div><p>v4 字幕抽帧审查图。检查点包括 121、140、180、218、248、260、300、340、382 秒。</p><div class="mtime">最新修改：2026-06-09 15:19:00 CST</div></div>
+        <div class="file"><div class="name"><span class="tag">WAV</span> production/audio/duix-first390-master-accepted120-tail-v1.wav</div><p>全片唯一主音轨。0-120s 来自 accepted reference，120-390.769s 来自 tail narration。</p><div class="mtime">最新修改：2026-06-09 12:28:27 CST</div></div>
+        <div class="file"><div class="name"><span class="tag">JSON</span> production/audio/captions-accepted120-tail-v1.json</div><p>FunASR 字幕时间轴，必须跟随最终 master audio 使用。</p><div class="mtime">最新修改：2026-06-09 12:36:31 CST</div></div>
+      </div>
+    </section>
+
+    <section>
+      <h2>八、核心规则速查</h2>
+      <div class="rules">
+        <div class="rule"><strong>声音先行</strong><p>没有完整 master audio、FunASR 字幕、caption timeline、DUIX slice map，不允许称为最终版。</p></div>
+        <div class="rule"><strong>字幕烧录</strong><p>caption JSON 不等于成片字幕；final HTML 必须包含可见 <code>.caption-line</code> clips。</p></div>
+        <div class="rule"><strong>DUIX 静音</strong><p>DUIX 视频只做口型画面；最终声音来自一条连续主音轨。</p></div>
+        <div class="rule"><strong>场景分类</strong><p>先定 scene_type，再映射组件；不能凭视觉方便乱选版式。</p></div>
+        <div class="rule"><strong>圆形 PIP</strong><p>只允许用于 screen_demo_pip，屏幕录制是主体，PIP 是辅助讲解。</p></div>
+        <div class="rule"><strong>概念分栏</strong><p>concept_split 必须使用左信息栏 + 右视频栏，不能用圆形 PIP 替代。</p></div>
+        <div class="rule"><strong>禁止空 HUD</strong><p>空圆环、无意义装饰框、四角取景线、旧 scaffold 都不能进入最终片。</p></div>
+        <div class="rule"><strong>Screen Proxy</strong><p>screen_demo 主画面若来自原片，必须裁掉原片人物 PIP，再叠加新的 DUIX PIP，避免双人物。</p></div>
+        <div class="rule"><strong>gop30 资产</strong><p>DUIX 输出和 proof 视频进入 HyperFrames 前统一重编码为 gop30，降低 seek/keyframe 风险。</p></div>
+        <div class="rule"><strong>视频必须动</strong><p>概念上是视频的槽必须是真 mp4，并用相隔 0.5s 的帧检查确认不冻结。</p></div>
+        <div class="rule"><strong>DUIX 完成判据</strong><p><code>success:true</code> 不算完成；必须 <code>data.status == 2 && progress == 100</code>。</p></div>
+        <div class="rule"><strong>Final Gate</strong><p><code>npm run validate:final</code> 不通过，就不能交付为最终版本。</p></div>
+      </div>
+    </section>
+
+    <section>
+      <h2>九、常用命令</h2>
+      <div class="commands">
+        <pre>cd /Users/serva/Documents/Codex/2026-06-05/dance-pop-candidate-genre-pop-recipes/first390-template-locked
+npm run validate:template</pre>
+        <pre>npm run validate:final</pre>
+        <pre>npm run asr:funasr
+npm run build:duix-slices
+npm run prepare:duix-jobs
+npm run submit:duix-jobs</pre>
+        <pre>npm run generate:tail-final</pre>
+        <pre>npx --yes hyperframes@0.6.79 lint
+npx --yes hyperframes@0.6.79 inspect --at 4,16,48,105,160,210,260,310,360,385 --timeout 180000</pre>
+      </div>
+    </section>
+
+    <footer>
+      Generated for 黄总 · Codex+Hyperframes+Duix+LTX 视频生成项目模版 · 更新依据：本地文件 stat 时间
+    </footer>
+  </main>
+</body>
+</html>
