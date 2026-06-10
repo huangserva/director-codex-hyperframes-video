@@ -140,6 +140,18 @@ The verified DUIX/HeyGem offline call path is:
 source.mp4 + dub.wav -> /easy/submit -> /easy/query -> <job_id>-r.mp4
 ```
 
+For remote GPU submission, use the prepared-job pipeline:
+
+```text
+prepare-duix-jobs.mjs -> submit-prepared-duix-jobs.mjs -> remote_run_prepared_duix.py
+```
+
+`submit-prepared-duix-jobs.mjs` uploads prepared jobs with SSH/scp and requires
+`DUIX_HOST` from the environment. The repository must not hard-code private GPU
+host addresses. DUIX/HeyGem has no API key in this offline flow; access control
+is SSH access to the GPU host. Verify SSH with `ssh -o BatchMode=yes` before
+running the submit step on a new machine. See `docs/duix-remote-submission.md`.
+
 Required submit payload defaults:
 
 ```json

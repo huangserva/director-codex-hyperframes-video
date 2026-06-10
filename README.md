@@ -19,6 +19,12 @@ Human-readable project overview:
 first390-template-locked/docs/codex-hyperframes-duix-ltx-video-template.html
 ```
 
+DUIX remote GPU submission notes:
+
+```text
+first390-template-locked/docs/duix-remote-submission.md
+```
+
 Creative source of truth:
 
 ```text

@@ -29,6 +29,7 @@ used as a layout source.
    `.caption-line` clips. Caption JSON alone is not a final subtitle.
 7. Update `data/audio-manifest.json`; final mode requires all required audio items.
 8. Update `data/duix-jobs-manifest.json`; every DUIX output asset needs a job record.
+   Remote GPU submission is documented in `docs/duix-remote-submission.md`.
 9. Classify every scene in `data/scene-map-390.json` with `scene_type`.
 10. Every `scene_type` must map to the component locked in `template.lock.json`.
 11. Every conceptual video slot must be listed in `data/asset-manifest.json`.
