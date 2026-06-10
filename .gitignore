@@ -17,6 +17,15 @@
 !*.jpeg
 !*.png
 
+# The accepted first 120s baseline template is part of the project, not a
+# generated output archive. Keep its source HTML, docs, reference frames, and
+# required template media in Git so a fresh clone has the visual source of truth.
+!first120-template-duix/
+!first120-template-duix/**
+first120-template-duix/render/
+first120-template-duix/assets/_backup_before_cosy_master_v2/
+first120-template-duix/**/.DS_Store
+
 # HyperFrames render caches and intermediate assembly files.
 first390-template-locked/render/work-*/
 first390-template-locked/render/assemble*/

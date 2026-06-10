@@ -1,0 +1,9 @@
+{
+  "name": "first120-template",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "check": "npx --yes hyperframes@0.6.79 lint && npx --yes hyperframes@0.6.79 validate && npx --yes hyperframes@0.6.79 inspect",
+    "render": "npx --yes hyperframes@0.6.79 render --fps 30 --quality standard --output render/first120-template.mp4"
+  }
+}

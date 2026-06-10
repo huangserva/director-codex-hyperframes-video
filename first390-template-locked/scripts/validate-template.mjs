@@ -25,6 +25,27 @@ const duixJobsManifest = readJson("data/duix-jobs-manifest.json");
 const errors = [];
 const warnings = [];
 
+const repoRoot = path.resolve(root, "..");
+const acceptedBaselineRequiredFiles = [
+  "first120-template-duix/index.html",
+  "first120-template-duix/hyperframes.json",
+  "first120-template-duix/package.json",
+  "first120-template-duix/assets/duix-intro-first10.mp4",
+  "first120-template-duix/assets/duix-course-presenter.mp4",
+  "first120-template-duix/assets/duix-prompt-pip.mp4",
+  "first120-template-duix/assets/duix-first120-audio.m4a",
+  "first120-template-duix/docs/duix-cosyvoice-asr-template.md"
+];
+
+for (const relativePath of acceptedBaselineRequiredFiles) {
+  const absolutePath = path.join(repoRoot, relativePath);
+  if (!fs.existsSync(absolutePath)) {
+    fail(errors, `accepted first120 baseline is missing required file: ../${relativePath}`);
+  } else if (fs.statSync(absolutePath).size === 0) {
+    fail(errors, `accepted first120 baseline file is empty: ../${relativePath}`);
+  }
+}
+
 const storyboardPath = path.join(root, "storyboard.md");
 if (!fs.existsSync(storyboardPath)) {
   fail(errors, "storyboard.md is missing; production must start from a human-readable storyboard");

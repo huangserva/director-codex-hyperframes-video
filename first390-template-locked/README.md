@@ -9,7 +9,8 @@ system.
 - GitHub archive: https://github.com/huangserva/director-codex-hyperframes-video
 - Creative source of truth: `storyboard.md`
 - Timing/content reference: local source video, not committed to this template repo.
-- Visual/layout source of truth: the locked component contracts and reference JPGs.
+- Visual/layout source of truth: `../first120-template-duix/index.html`, the
+  locked component contracts, and reference JPGs.
 - Accepted first 120s review render: keep locally or in a Release, not in Git.
 - Accepted split reference: `assets/reference-split-48s.jpg`
 - Accepted title-card reference: `assets/reference-title-11s.jpg`
@@ -69,6 +70,8 @@ scenes. Empty HUD circles and decorative empty frames are forbidden.
   replace each slot with a real moving mp4 before final render.
 - `index.html` is generated from the locked scene map. Do not hand-edit it as the
   source of truth.
+- `../first120-template-duix/` is committed as the accepted first 120s baseline.
+  If it is missing, the repo is incomplete and `validate:template` must fail.
 - Final render must include burned-in `.caption-line` clips; `validate:final`
   fails until the project has real ASR captions and real media assets.
 - Accepted output videos belong in local production storage or GitHub Releases,
