@@ -28,7 +28,7 @@
 
 1. 复制当前模板工程到新目录，或者至少使用新的 render 输出文件名；不要覆盖已验收版本。
 2. 先确定 120s 台词。
-3. 用 CosyVoice 或其它已确认音色生成一条完整主音频。
+3. 用已批准的 CosyVoice 路线生成一条完整主音频。当前批准路线包括远程 CosyVoice3 母版音色 API，以及本地 CosyVoice3 zero-shot fallback。
 4. 如果需要压缩到 120s，先完成压缩，再把压缩后的音频作为唯一主音轨。
 5. 按数字人出现的时间点，从主音轨里切片。
 6. 将 DUIX 驱动音频切片转换成 verified 格式，通常是 `44.1kHz mono WAV`。
@@ -39,6 +39,45 @@
 11. 渲染 HyperFrames 视频。
 12. 用 ffmpeg 把连续主音轨 mux 到最终 MP4。
 13. 做 QA：字幕、口型、音频连续性、视频是否在动、布局是否歪。
+
+## CosyVoice TTS 路线
+
+### 远程 CosyVoice3 母版音色 API
+
+这是当前推荐的共享母版音色路线。代码不要写死公网地址，使用环境变量：
+
+```bash
+COSYVOICE3_MASTER_API_BASE_URL=http://host:port
+```
+
+调用规则：
+
+- `GET /health`：检查服务、模型、CUDA 和母版 prompt wav。
+- `POST /tts`：提交 JSON，字段为 `text` 和 `speed`。
+- 注意：`POST /tts` 返回 JSON 元数据，不是直接返回 WAV。必须读取其中的 `download_url`，再 `GET /download/{filename}` 下载实际 WAV。
+- 输出应为 24kHz 单声道 WAV。
+
+项目 helper：
+
+```bash
+cd first390-template-locked
+COSYVOICE3_MASTER_API_BASE_URL=http://host:port \
+  npm run tts:remote-cosyvoice3 -- \
+  --text-file production/full-script-390-v4.txt \
+  --output production/audio/remote-cosyvoice3-master.wav \
+  --speed 1.0
+```
+
+### 本地 CosyVoice3 fallback
+
+本地路线仍可用，但必须使用已验证 runtime：
+
+```bash
+PYTHONPATH=/Users/serva/.hermes/runtime/cosyvoice_tf4513:/Users/serva/CosyVoice/third_party/Matcha-TTS \
+  /Users/serva/miniconda3/envs/cosyvoice/bin/python ...
+```
+
+不要裸跑 conda env，也不要默认切到 MiMo/Xiaomi。
 
 ## 当前视频槽位
 

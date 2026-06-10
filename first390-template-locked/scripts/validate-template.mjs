@@ -68,6 +68,7 @@ const assets = manifest.assets || {};
 const scenes = sceneMap.scenes || [];
 const sceneTypeContracts = lock.scene_type_contracts || {};
 const audioItems = audioManifest.items || {};
+const ttsPolicy = audioManifest.tts_policy || {};
 const duixJobs = duixJobsManifest.jobs || {};
 
 if (sceneMap.duration !== lock.duration) {
@@ -78,8 +79,60 @@ if (!scenes.length) {
   fail(errors, "scene-map has no scenes");
 }
 
+const approvedTtsProviders = new Set(ttsPolicy.approved_providers || []);
+if (!ttsPolicy.default_provider) {
+  fail(errors, "audio-manifest missing tts_policy.default_provider");
+} else if (!approvedTtsProviders.has(ttsPolicy.default_provider)) {
+  fail(errors, `tts_policy.default_provider ${ttsPolicy.default_provider} is not in approved_providers`);
+}
+
+for (const requiredProvider of ["remote_cosyvoice3_master_api", "local_cosyvoice3_zero_shot"]) {
+  if (!approvedTtsProviders.has(requiredProvider)) {
+    fail(errors, `tts_policy.approved_providers missing ${requiredProvider}`);
+  }
+}
+
+const forbiddenTtsProviders = new Set(ttsPolicy.forbidden_providers || []);
+for (const forbidden of ["mimo", "xiaomi_tts", "macos_say_voice_conversion"]) {
+  if (!forbiddenTtsProviders.has(forbidden)) {
+    fail(errors, `tts_policy.forbidden_providers missing ${forbidden}`);
+  }
+}
+
+const remoteCosy = ttsPolicy.remote_cosyvoice3_master_api || {};
+for (const [field, expected] of [
+  ["base_url_env", "COSYVOICE3_MASTER_API_BASE_URL"],
+  ["health_endpoint", "/health"],
+  ["tts_endpoint", "/tts"]
+]) {
+  if (remoteCosy[field] !== expected) {
+    fail(errors, `remote_cosyvoice3_master_api.${field} must be ${expected}`);
+  }
+}
+if (!String(remoteCosy.download_rule || "").includes("download_url")) {
+  fail(errors, "remote_cosyvoice3_master_api.download_rule must mention download_url");
+}
+if (!String(remoteCosy.output_format || "").includes("24kHz mono")) {
+  fail(errors, "remote_cosyvoice3_master_api.output_format must require 24kHz mono");
+}
+
+const localCosy = ttsPolicy.local_cosyvoice3_zero_shot || {};
+if (localCosy.python !== "/Users/serva/miniconda3/envs/cosyvoice/bin/python") {
+  fail(errors, "local_cosyvoice3_zero_shot.python must use the verified cosyvoice conda python");
+}
+if (!String(localCosy.required_pythonpath || "").includes("cosyvoice_tf4513")) {
+  fail(errors, "local_cosyvoice3_zero_shot.required_pythonpath must pin the verified runtime");
+}
+
 for (const [id, item] of Object.entries(audioItems)) {
   if (item.required_for_final !== true) continue;
+  if (id === "master_audio") {
+    if (!item.tts_provider) {
+      fail(errors, "audio-manifest master_audio missing tts_provider");
+    } else if (!approvedTtsProviders.has(item.tts_provider)) {
+      fail(errors, `audio-manifest master_audio uses unapproved tts_provider ${item.tts_provider}`);
+    }
+  }
   if (item.status === "exists") {
     if (!item.path) {
       fail(errors, `audio-manifest ${id} says exists but path is empty`);

@@ -90,6 +90,30 @@ Final mode must fail unless all of these exist and are marked `exists` in
 The source audio from `source.mp4` may be used only for analysis or comparison. It
 cannot be treated as the final master audio for the new template.
 
+## TTS Provider Rule
+
+Approved TTS providers are declared in `data/audio-manifest.json`.
+
+- `remote_cosyvoice3_master_api`: preferred current route for the shared master
+  voice API. Set `COSYVOICE3_MASTER_API_BASE_URL` before generation. `POST /tts`
+  returns JSON metadata with `download_url`; fetch that URL to obtain the actual
+  24kHz mono WAV.
+- `local_cosyvoice3_zero_shot`: local fallback under `/Users/serva/CosyVoice`
+  using the verified conda Python and fixed `PYTHONPATH`.
+
+Do not use MiMo/Xiaomi TTS, macOS `say`, or a voice-conversion fallback unless
+黄总 explicitly changes the provider policy.
+
+Remote CosyVoice3 helper:
+
+```bash
+COSYVOICE3_MASTER_API_BASE_URL=http://host:port \
+  npm run tts:remote-cosyvoice3 -- \
+  --text-file production/full-script-390-v4.txt \
+  --output production/audio/remote-cosyvoice3-tail.wav \
+  --speed 1.0
+```
+
 ## ASR Rule
 
 For this Chinese tech-talk template, the preferred ASR engine is FunASR:

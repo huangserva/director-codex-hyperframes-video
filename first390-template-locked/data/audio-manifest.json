@@ -1,6 +1,33 @@
 {
   "rule": "Template mode is audio-first but does not commit generated audio. Before final render, generate a continuous master audio, run FunASR, create captions, and build the DUIX slice map; then change required items from todo to exists.",
   "source_audio_policy": "source.mp4 audio is analysis/reference only; it is not the final master audio for the new template.",
+  "tts_policy": {
+    "default_provider": "remote_cosyvoice3_master_api",
+    "approved_providers": [
+      "remote_cosyvoice3_master_api",
+      "local_cosyvoice3_zero_shot"
+    ],
+    "forbidden_providers": [
+      "mimo",
+      "xiaomi_tts",
+      "macos_say_voice_conversion"
+    ],
+    "remote_cosyvoice3_master_api": {
+      "base_url_env": "COSYVOICE3_MASTER_API_BASE_URL",
+      "health_endpoint": "/health",
+      "tts_endpoint": "/tts",
+      "download_rule": "POST /tts returns JSON metadata with download_url; fetch download_url to obtain the actual WAV.",
+      "request_content_type": "application/json",
+      "output_format": "wav pcm_s16le 24kHz mono",
+      "speed_range": [0.5, 1.5]
+    },
+    "local_cosyvoice3_zero_shot": {
+      "python": "/Users/serva/miniconda3/envs/cosyvoice/bin/python",
+      "required_pythonpath": "/Users/serva/.hermes/runtime/cosyvoice_tf4513:/Users/serva/CosyVoice/third_party/Matcha-TTS",
+      "output_format": "wav 24kHz mono",
+      "rule": "Use the approved prompt audio and exact prompt text; do not run the bare conda env for production."
+    }
+  },
   "items": {
     "full_script": {
       "type": "script",
@@ -13,6 +40,7 @@
       "path": "production/audio/duix-first390-master-accepted120-tail-v1.wav",
       "preview_path": "production/audio/duix-first390-master-accepted120-tail-v1.m4a",
       "composition_policy": "0-120s is the accepted first120 reference audio; 120-390.77s is the new CosyVoice tail audio.",
+      "tts_provider": "remote_cosyvoice3_master_api",
       "status": "todo",
       "required_for_final": true
     },
