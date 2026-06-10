@@ -1,0 +1,4 @@
+interface:
+  display_name: "DUIX HeyGem Lip Sync"
+  short_description: "已验证的 DUIX/HeyGem 离线数字人口型同步接口流程。"
+  default_prompt: "使用已验证的 DUIX/HeyGem gen-video 接口流程，准备素材、提交口型同步任务、轮询进度并取回结果。"

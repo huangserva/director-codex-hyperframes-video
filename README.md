@@ -25,6 +25,19 @@ Human-readable project overview:
 first390-template-locked/docs/codex-hyperframes-duix-ltx-video-template.html
 ```
 
+Project-specific Codex skills:
+
+```text
+SKILLS.md
+codex-skills/
+```
+
+Install them on a fresh machine with:
+
+```bash
+node scripts/install-codex-skills.mjs
+```
+
 DUIX remote GPU submission notes:
 
 ```text

@@ -1,0 +1,4 @@
+interface:
+  display_name: "HyperFrames Tech Talk Template"
+  short_description: "复刻科技感口播视频模板，统一左右分栏、背景、视频裁切和验证流程。"
+  default_prompt: "用这套科技感口播视频模板规则，分析参考视频并制作或修正 HyperFrames 模板。"
