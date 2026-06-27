@@ -1,0 +1,160 @@
+{
+  "$schema": "../schemas/recipe.schema.json",
+  "version": "2026-06-19",
+  "project_id": "evomap-laonong-v3",
+  "title": "EvoMap Grant 老农 v3 六场录屏版",
+  "base_dir": "first390-template-locked",
+  "digital_human": {
+    "id": "dh-02-laonong",
+    "plate_mode": "fullscreen presenter reused as circular PIP when scene kind requires PIP",
+    "notes": "四个原始老农场冻结复用；m1-demo / m2-leaderboard 为新增录屏口播场。"
+  },
+  "voice": {
+    "mode": "character_reference",
+    "voice_id": "h2-henan-r2",
+    "engine": "remote_4090_cosyvoice3_direct_h2_henan_zero_shot",
+    "reference_audio": "first390-template-locked/production/evomap-grant/voice/henan-refs/r2-dahuang-42p49-56p93.wav",
+    "prompt_text": "first390-template-locked/production/evomap-grant/voice/henan-refs/r2-dahuang-42p49-56p93.prompt.txt",
+    "notes": "黄总选定 H2 河南老人音色；TTS speed=1.0。"
+  },
+  "script": {
+    "path": "first390-template-locked/production/evomap-grant/full-script-v3.txt",
+    "version": "v3-short-s003",
+    "humanizer_status": "approved production script; original humanizer work completed upstream",
+    "pronunciation_notes": ["A P I displays as API", "EvoMap/Claude/GPT/Gemini/DeepSeek/GLM/Kimi/GitHub display normally"]
+  },
+  "audio": {
+    "master": "first390-template-locked/production/evomap-grant/audio/evomap-master.wav",
+    "timeline": "first390-template-locked/production/evomap-grant/audio/evomap-timeline.json",
+    "captions": "first390-template-locked/production/evomap-grant/audio/captions-evomap-v3.json",
+    "scene_wav_dir": "first390-template-locked/production/evomap-grant/audio/scenes",
+    "alignment": "known-text forced alignment per scene with full-script-v3 display text"
+  },
+  "visuals": {
+    "width": 1280,
+    "height": 720,
+    "fps": 30,
+    "manifest": "first390-template-locked/evomap-grant-v3.manifest.json",
+    "composition_html": "first390-template-locked/index-evomap-grant-v3.html",
+    "isolated_html": "first390-template-locked/evomap-grant-v3-isolated/index.html",
+    "style_notes": "Warm rural explainer style; do not force black-gold HUD. S2/S3 use EvoMap registered card components; M1/M2 use ScreenWithPip."
+  },
+  "screen_assets": [
+    {
+      "id": "evo1-claim-flow",
+      "path": "first390-template-locked/production/evomap-grant/screens/evo1-claim-flow.mp4",
+      "muted": true,
+      "notes": "M1 operation demo; fit/crop to 1280x720 with one bottom-left PIP."
+    },
+    {
+      "id": "evo2-leaderboard",
+      "path": "first390-template-locked/production/evomap-grant/screens/evo2-leaderboard.mp4",
+      "muted": true,
+      "hold_variant": "first390-template-locked/production/evomap-grant/screens/evo2-leaderboard-v3-hold.mp4",
+      "notes": "M2 leaderboard demo; hold variant pads the shorter source without stretching."
+    }
+  ],
+  "scenes": [
+    {
+      "id": "s001",
+      "order": 1,
+      "kind": "presenter_full",
+      "script_ref": "S1 开场",
+      "start": 0,
+      "duration": 22.82,
+      "component": "HeroAroll",
+      "scene_type": "aroll_emphasis",
+      "duix_result": "first390-template-locked/production/evomap-grant/duix-results/evomap_s001-r.mp4",
+      "scene_wav": "first390-template-locked/production/evomap-grant/audio/scenes/s001.wav",
+      "frozen": true,
+      "notes": "老农满屏，开头不盖脸。"
+    },
+    {
+      "id": "s002",
+      "order": 2,
+      "kind": "component_pip",
+      "script_ref": "S2 参与规则",
+      "start": 23,
+      "duration": 19.83,
+      "component": "EvomapGrantSteps",
+      "scene_type": "evomap_grant_steps",
+      "pip_duix_result": "first390-template-locked/production/evomap-grant/duix-results/evomap_s002-r.mp4",
+      "scene_wav": "first390-template-locked/production/evomap-grant/audio/scenes/s002.wav",
+      "frozen": true,
+      "notes": "三步领取卡 + 左下单 PIP。"
+    },
+    {
+      "id": "m1-demo",
+      "order": 3,
+      "kind": "screen_recording_pip",
+      "script_ref": "M1 操作演示",
+      "start": 43.01,
+      "duration": 24.28,
+      "component": "ScreenWithPip",
+      "scene_type": "screen_demo_pip",
+      "screen_asset": "evo1-claim-flow",
+      "pip_duix_result": "first390-template-locked/production/evomap-grant/duix-results/evomap_m1demo-r.mp4",
+      "scene_wav": "first390-template-locked/production/evomap-grant/audio/scenes/m1-demo.wav",
+      "frozen": true,
+      "notes": "录屏静音；PIP 不盖关键领取 UI。"
+    },
+    {
+      "id": "s003",
+      "order": 4,
+      "kind": "component_pip",
+      "script_ref": "S3 领什么",
+      "start": 67.47,
+      "duration": 16.73,
+      "component": "EvomapModelGrid",
+      "scene_type": "evomap_model_grid",
+      "pip_duix_result": "first390-template-locked/production/evomap-grant/duix-results/evomap_s003-r.mp4",
+      "scene_wav": "first390-template-locked/production/evomap-grant/audio/scenes/s003.wav",
+      "frozen": false,
+      "notes": "短版 s003；六模型卡保持完整。"
+    },
+    {
+      "id": "m2-leaderboard",
+      "order": 5,
+      "kind": "screen_recording_pip",
+      "script_ref": "M2 排行榜",
+      "start": 84.38,
+      "duration": 11.97,
+      "component": "ScreenWithPip",
+      "scene_type": "screen_demo_pip",
+      "screen_asset": "evo2-leaderboard",
+      "pip_duix_result": "first390-template-locked/production/evomap-grant/duix-results/evomap_m2lb-r.mp4",
+      "scene_wav": "first390-template-locked/production/evomap-grant/audio/scenes/m2-leaderboard.wav",
+      "frozen": true,
+      "notes": "使用 hold variant 补足场景尾部，防止黑屏。"
+    },
+    {
+      "id": "s004",
+      "order": 6,
+      "kind": "summary",
+      "script_ref": "S4 收尾",
+      "start": 96.53,
+      "duration": 23.88,
+      "component": "HeroAroll",
+      "scene_type": "aroll_emphasis",
+      "duix_result": "first390-template-locked/production/evomap-grant/duix-results/evomap_s004-r.mp4",
+      "scene_wav": "first390-template-locked/production/evomap-grant/audio/scenes/s004.wav",
+      "frozen": true,
+      "notes": "老农满屏收尾，不盖脸。"
+    }
+  ],
+  "outputs": {
+    "silent": "first390-template-locked/render/evomap-grant-v3-silent.mp4",
+    "final": "first390-template-locked/render/evomap-grant-v3-final.mp4"
+  },
+  "validation": {
+    "commands": [
+      "node codex-skills/video-master-pipeline/scripts/validate-recipe.mjs codex-skills/video-master-pipeline/recipes/evomap-laonong-v3.recipe.json",
+      "cd first390-template-locked && npm run validate:manifest -- evomap-grant-v3.manifest.json",
+      "cd first390-template-locked && node scripts/validate-evomap-grant-v3-pipeline.mjs --final",
+      "cd first390-template-locked && npx --yes hyperframes@0.6.79 lint",
+      "cd first390-template-locked/evomap-grant-v3-isolated && npx --yes hyperframes@0.6.79 inspect --at 2,30,50,72,85,104,119 --timeout 120000"
+    ],
+    "audit_frames": [2, 30, 50, 72, 80, 85, 95, 104, 119],
+    "notes": "Frame audit should confirm no black screen/freeze/face cover/subtitle overflow; screen recordings muted and readable."
+  }
+}

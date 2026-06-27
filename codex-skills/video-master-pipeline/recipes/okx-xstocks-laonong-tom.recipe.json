@@ -1,0 +1,151 @@
+{
+  "$schema": "../schemas/recipe.schema.json",
+  "version": "2026-06-20",
+  "project_id": "okx-xstocks-laonong-tom",
+  "title": "OKX xStocks 老农四川话 Tom A/B version",
+  "base_dir": "first390-template-locked",
+  "digital_human": {
+    "id": "dh-02-laonong",
+    "plate_mode": "fullscreen presenter plus lower-left circular PIP",
+    "notes": "Tom independent version using dh-02-laonong and Tom-specific OKX namespace."
+  },
+  "voice": {
+    "mode": "character_voice_reference_clone",
+    "voice_id": "sichuan-oldmale-tom",
+    "engine": "remote_4090_cosyvoice3_direct_zero_shot",
+    "reference_audio": "first390-template-locked/production/okx-xstocks-laonong-tom/voice/sichuan-ref-24k.wav",
+    "prompt_text": "first390-template-locked/production/okx-xstocks-laonong-tom/voice/sichuan-ref.prompt.txt",
+    "notes": "Real Sichuan old male Bilibili reference copied into Tom namespace; prompt_text is the verbatim reference transcript with no style instructions."
+  },
+  "script": {
+    "path": "first390-template-locked/production/okx-xstocks-laonong-tom/full-script-v2.txt",
+    "version": "v2-humanized",
+    "humanizer_status": "passed humanizer-zh gate, rubric 46/50",
+    "pronunciation_notes": [
+      "OKX -> O K X",
+      "USDC -> U S D C",
+      "TSLAx -> 特斯拉 x",
+      "AAPLx -> 苹果 x",
+      "ICE -> I C E",
+      "Boost kept as English"
+    ]
+  },
+  "audio": {
+    "master": "first390-template-locked/production/okx-xstocks-laonong-tom/audio/master.wav",
+    "timeline": "first390-template-locked/production/okx-xstocks-laonong-tom/audio/timeline.json",
+    "captions": "first390-template-locked/production/okx-xstocks-laonong-tom/audio/captions-okx-tom.json",
+    "scene_wav_dir": "first390-template-locked/production/okx-xstocks-laonong-tom/audio/scenes",
+    "alignment": "Chinese known-text forced alignment with FunASR fa-zh per scene. ASR-recognized text is not used as primary timing or display source."
+  },
+  "visuals": {
+    "width": 1280,
+    "height": 720,
+    "fps": 30,
+    "manifest": "first390-template-locked/okx-xstocks-laonong-tom.manifest.json",
+    "composition_html": "first390-template-locked/index-okx-xstocks-laonong-tom.html",
+    "isolated_html": "first390-template-locked/okx-xstocks-laonong-tom-isolated/index.html",
+    "style_notes": "S1/S4/S5 full-screen old farmer. S2/S3 main OKX campaign image with one lower-left circular old-farmer PIP and 36px burned-in Chinese captions."
+  },
+  "screen_assets": [
+    {
+      "id": "hero-bull",
+      "path": "first390-template-locked/production/okx-xstocks-laonong-tom/assets/hero-bull.png",
+      "muted": true,
+      "notes": "Still campaign visual used as S2 main stage."
+    },
+    {
+      "id": "prize-300k-usdc",
+      "path": "first390-template-locked/production/okx-xstocks-laonong-tom/assets/prize-300k-usdc.png",
+      "muted": true,
+      "notes": "Still prize-pool visual used as S3 main stage."
+    }
+  ],
+  "scenes": [
+    {
+      "id": "s001",
+      "order": 1,
+      "kind": "presenter_full",
+      "script_ref": "S1 开场",
+      "start": 0,
+      "duration": 16.88,
+      "component": "HeroAroll",
+      "scene_type": "aroll_emphasis",
+      "duix_result": "first390-template-locked/production/okx-xstocks-laonong-tom/duix-results/okx_tom_s001-r.mp4",
+      "scene_wav": "first390-template-locked/production/okx-xstocks-laonong-tom/audio/scenes/s001.wav",
+      "frozen": false,
+      "notes": "Full-screen dh-02 old farmer; face must remain visible."
+    },
+    {
+      "id": "s002",
+      "order": 2,
+      "kind": "component_pip",
+      "script_ref": "S2 链上股票",
+      "start": 17.06,
+      "duration": 20.96,
+      "component": "OkxHeroBullImageWithPip",
+      "scene_type": "screen_demo_pip",
+      "pip_duix_result": "first390-template-locked/production/okx-xstocks-laonong-tom/duix-results/okx_tom_s002-r.mp4",
+      "screen_asset": "hero-bull",
+      "scene_wav": "first390-template-locked/production/okx-xstocks-laonong-tom/audio/scenes/s002.wav",
+      "frozen": false,
+      "notes": "Static hero image plus one lower-left circular old-farmer PIP."
+    },
+    {
+      "id": "s003",
+      "order": 3,
+      "kind": "component_pip",
+      "script_ref": "S3 交易赛奖池",
+      "start": 38.2,
+      "duration": 20.44,
+      "component": "OkxPrizeImageWithPip",
+      "scene_type": "screen_demo_pip",
+      "pip_duix_result": "first390-template-locked/production/okx-xstocks-laonong-tom/duix-results/okx_tom_s003-r.mp4",
+      "screen_asset": "prize-300k-usdc",
+      "scene_wav": "first390-template-locked/production/okx-xstocks-laonong-tom/audio/scenes/s003.wav",
+      "frozen": false,
+      "notes": "Static prize image plus one lower-left circular old-farmer PIP."
+    },
+    {
+      "id": "s004",
+      "order": 4,
+      "kind": "presenter_full",
+      "script_ref": "S4 往大了说",
+      "start": 58.82,
+      "duration": 20.04,
+      "component": "HeroAroll",
+      "scene_type": "aroll_emphasis",
+      "duix_result": "first390-template-locked/production/okx-xstocks-laonong-tom/duix-results/okx_tom_s004-r.mp4",
+      "scene_wav": "first390-template-locked/production/okx-xstocks-laonong-tom/audio/scenes/s004.wav",
+      "frozen": false,
+      "notes": "Full-screen dh-02 old farmer; no overlay covers face."
+    },
+    {
+      "id": "s005",
+      "order": 5,
+      "kind": "summary",
+      "script_ref": "S5 收尾",
+      "start": 79.04,
+      "duration": 17.96,
+      "component": "SummaryAroll",
+      "scene_type": "summary_cta",
+      "duix_result": "first390-template-locked/production/okx-xstocks-laonong-tom/duix-results/okx_tom_s005-r.mp4",
+      "scene_wav": "first390-template-locked/production/okx-xstocks-laonong-tom/audio/scenes/s005.wav",
+      "frozen": false,
+      "notes": "Full-screen closing old farmer; no overlay covers face."
+    }
+  ],
+  "outputs": {
+    "silent": "first390-template-locked/render/okx-xstocks-laonong-tom-silent.mp4",
+    "final": "first390-template-locked/render/okx-xstocks-laonong-tom-final.mp4"
+  },
+  "validation": {
+    "commands": [
+      "node codex-skills/video-master-pipeline/scripts/validate-recipe.mjs codex-skills/video-master-pipeline/recipes/okx-xstocks-laonong-tom.recipe.json",
+      "cd first390-template-locked && node scripts/validate-okx-xstocks-laonong-tom-pipeline.mjs --final",
+      "cd first390-template-locked/okx-xstocks-laonong-tom-isolated && npx --yes hyperframes@0.6.79 lint",
+      "cd first390-template-locked/okx-xstocks-laonong-tom-isolated && npx --yes hyperframes@0.6.79 inspect --at 2,24,47,66,88 --timeout 120000"
+    ],
+    "audit_frames": [2, 24, 47, 66, 88, 96.5],
+    "notes": "Check old-farmer full scenes, both image+PIP scenes, subtitles safe at 36px, no final black frame, final audio from the single master.wav."
+  }
+}

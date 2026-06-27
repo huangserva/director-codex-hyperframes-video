@@ -1,0 +1,166 @@
+{
+  "$schema": "../schemas/recipe.schema.json",
+  "version": "2026-06-26-v1f-final-phase2",
+  "project_id": "okx-xstocks-dh03",
+  "title": "OKX xStocks dh-03 女主播 v1f-final Phase 2",
+  "base_dir": "first390-template-locked",
+  "digital_human": {
+    "id": "dh-03-female-navy-gray",
+    "plate_mode": "female_01 fullscreen presenter reused as circular PIP",
+    "notes": "Use locked v1f-final master. Reuse old-farmer v8d visual system and replace only presenter/lip-sync plus dh-03 display-script captions."
+  },
+  "voice": {
+    "mode": "locked_existing_master",
+    "voice_id": "dh03-v1f-final",
+    "engine": "none_this_phase",
+    "reference_audio": "first390-template-locked/production/test-dh03-30s/voice/dh03-ref-24k.wav",
+    "prompt_text": "first390-template-locked/production/test-dh03-30s/voice/dh03-ref.prompt.txt",
+    "notes": "No TTS rerun. Huang selected cand2 opening OKX + cand1 line18, already baked into master-dh03-v1f-final.wav."
+  },
+  "script": {
+    "path": "first390-template-locked/production/okx-xstocks-dh03/full-script-v1-display.txt",
+    "version": "v1 display locked",
+    "pronunciation_notes": [
+      "Captions use clean display terms: OKX, DEX, USDC, ICE, TSLAx, AAPLx.",
+      "TTS spelling tokens are not exposed in render text."
+    ]
+  },
+  "audio": {
+    "master": "first390-template-locked/production/okx-xstocks-dh03/audio/master-dh03-v1f-final.wav",
+    "timeline": "first390-template-locked/production/okx-xstocks-dh03/audio/timeline-v1f-final.json",
+    "captions": "first390-template-locked/production/okx-xstocks-dh03/audio/captions-v1f-final.json",
+    "scene_wav_dir": "first390-template-locked/production/okx-xstocks-dh03/audio/scenes-v1f-final",
+    "alignment": "first390-template-locked/production/okx-xstocks-dh03/audio/forced-align-v1f-final.json"
+  },
+  "visuals": {
+    "width": 1280,
+    "height": 720,
+    "fps": 30,
+    "manifest": "first390-template-locked/okx-xstocks-dh03.manifest.json",
+    "composition_html": "first390-template-locked/index-okx-xstocks-dh03.html",
+    "isolated_html": "first390-template-locked/okx-xstocks-dh03-isolated/index.html",
+    "style_notes": "Reuse v8d OKX visual clips/assets/layout; only dh-03 DUIX presenter and captions change."
+  },
+  "screen_assets": [
+    {
+      "id": "stock-charts-cc0",
+      "path": "first390-template-locked/production/okx-xstocks-laonong-tom/assets/broll-v8/raw/stock-charts-cc0.jpg",
+      "muted": true,
+      "notes": "Reused v8d visual baseline asset."
+    },
+    {
+      "id": "okx-dex-swap",
+      "path": "first390-template-locked/production/okx-xstocks-laonong-tom/assets/broll-v8/screenshots-clean/okx-dex-swap-clean.png",
+      "muted": true,
+      "notes": "Reused v8d visual baseline asset."
+    },
+    {
+      "id": "concept-tokenized-stocks",
+      "path": "first390-template-locked/production/okx-xstocks-laonong-tom/assets/broll-v8/generated/concept-tokenized-stocks.png",
+      "muted": true,
+      "notes": "Reused v8d visual baseline asset."
+    },
+    {
+      "id": "concept-prize-leaderboard",
+      "path": "first390-template-locked/production/okx-xstocks-laonong-tom/assets/broll-v8/generated/concept-prize-leaderboard.png",
+      "muted": true,
+      "notes": "Reused v8d visual baseline asset."
+    },
+    {
+      "id": "concept-ice-okx-fact-card",
+      "path": "first390-template-locked/production/okx-xstocks-laonong-tom/assets/broll-v8/generated/concept-ice-okx-fact-card.png",
+      "muted": true,
+      "notes": "Reused v8d visual baseline asset."
+    },
+    {
+      "id": "concept-boost-entry",
+      "path": "first390-template-locked/production/okx-xstocks-laonong-tom/assets/broll-v8/generated/concept-boost-entry.png",
+      "muted": true,
+      "notes": "Reused v8d visual baseline asset."
+    }
+  ],
+  "scenes": [
+    {
+      "id": "s001",
+      "order": 1,
+      "kind": "screen_recording_pip",
+      "script_ref": "开场：OKX DEX 活动、xStocks、链上入口",
+      "start": 0,
+      "duration": 27.1,
+      "component": "HeroAroll + ScreenWithPip",
+      "duix_result": "first390-template-locked/production/okx-xstocks-dh03/duix-results-v1f-final/okx_dh03_v1f_s001-r.mp4",
+      "pip_duix_result": "first390-template-locked/production/okx-xstocks-dh03/duix-results-v1f-final/okx_dh03_v1f_s001-r.mp4",
+      "screen_asset": "okx-dex-swap",
+      "scene_wav": "first390-template-locked/production/okx-xstocks-dh03/audio/scenes-v1f-final/s001.wav",
+      "frozen": true
+    },
+    {
+      "id": "s002",
+      "order": 2,
+      "kind": "component_pip",
+      "script_ref": "链上股票、TSLAx/AAPLx、24小时、0手续费",
+      "start": 27.1,
+      "duration": 25.1,
+      "component": "ScreenWithPip",
+      "pip_duix_result": "first390-template-locked/production/okx-xstocks-dh03/duix-results-v1f-final/okx_dh03_v1f_s002-r.mp4",
+      "screen_asset": "concept-tokenized-stocks",
+      "scene_wav": "first390-template-locked/production/okx-xstocks-dh03/audio/scenes-v1f-final/s002.wav",
+      "frozen": true
+    },
+    {
+      "id": "s003",
+      "order": 3,
+      "kind": "component_pip",
+      "script_ref": "交易赛、交易量排名、前5000、300000 USDC",
+      "start": 52.2,
+      "duration": 17.625,
+      "component": "ScreenWithPip",
+      "pip_duix_result": "first390-template-locked/production/okx-xstocks-dh03/duix-results-v1f-final/okx_dh03_v1f_s003-r.mp4",
+      "screen_asset": "concept-prize-leaderboard",
+      "scene_wav": "first390-template-locked/production/okx-xstocks-dh03/audio/scenes-v1f-final/s003.wav",
+      "frozen": true
+    },
+    {
+      "id": "s004",
+      "order": 4,
+      "kind": "screen_recording_pip",
+      "script_ref": "ICE 投 OKX、股票上链、下一代入口",
+      "start": 69.825,
+      "duration": 27.55,
+      "component": "HeroAroll + ScreenWithPip",
+      "duix_result": "first390-template-locked/production/okx-xstocks-dh03/duix-results-v1f-final/okx_dh03_v1f_s004-r.mp4",
+      "pip_duix_result": "first390-template-locked/production/okx-xstocks-dh03/duix-results-v1f-final/okx_dh03_v1f_s004-r.mp4",
+      "screen_asset": "concept-ice-okx-fact-card",
+      "scene_wav": "first390-template-locked/production/okx-xstocks-dh03/audio/scenes-v1f-final/s004.wav",
+      "frozen": true
+    },
+    {
+      "id": "s005",
+      "order": 5,
+      "kind": "screen_recording_pip",
+      "script_ref": "截止、Boost 找交易赛、小额试、收尾",
+      "start": 97.375,
+      "duration": 22.665,
+      "component": "SummaryCta + ScreenWithPip",
+      "duix_result": "first390-template-locked/production/okx-xstocks-dh03/duix-results-v1f-final/okx_dh03_v1f_s005-r.mp4",
+      "pip_duix_result": "first390-template-locked/production/okx-xstocks-dh03/duix-results-v1f-final/okx_dh03_v1f_s005-r.mp4",
+      "screen_asset": "concept-boost-entry",
+      "scene_wav": "first390-template-locked/production/okx-xstocks-dh03/audio/scenes-v1f-final/s005.wav",
+      "frozen": true
+    }
+  ],
+  "outputs": {
+    "silent": "first390-template-locked/render/okx-xstocks-dh03-silent.mp4",
+    "final": "first390-template-locked/render/okx-xstocks-dh03-final.mp4"
+  },
+  "validation": {
+    "commands": [
+      "node codex-skills/video-master-pipeline/scripts/validate-recipe.mjs codex-skills/video-master-pipeline/recipes/okx-xstocks-dh03.recipe.json",
+      "cd first390-template-locked && node scripts/validate-okx-xstocks-dh03-pipeline.mjs --final",
+      "cd first390-template-locked/okx-xstocks-dh03-isolated && npm_config_ignore_scripts=true npx --yes hyperframes@0.6.79 lint",
+      "cd first390-template-locked/okx-xstocks-dh03-isolated && npm_config_ignore_scripts=true npx --yes hyperframes@0.6.79 inspect --at 2,8,15,24,35,43,55,65,74,84,92,110,118 --timeout 180000"
+    ],
+    "audit_frames": [2, 8, 15, 24, 35, 43, 55, 65, 74, 84, 92, 110, 118],
+    "notes": "Confirm dh-03 female presenter face is visible, no frozen frames/black frames, and captions stay in bottom safe area."
+  }
+}

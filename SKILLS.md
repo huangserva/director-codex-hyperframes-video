@@ -58,3 +58,30 @@ project.
 Do not commit private endpoints, tokens, SSH credentials, cookies, or generated
 render outputs into skills. Use environment variables for machine-specific
 values such as TTS API bases and DUIX host addresses.
+
+## Machine-Specific Endpoints (.env.local)
+
+Hosts/ports/API bases are NOT hardcoded in skills or scripts. They live in a
+gitignored `first390-template-locked/.env.local`, loaded automatically by
+`scripts/load-env.mjs` (imported by `remote-cosyvoice3-tts.mjs` and
+`submit-prepared-duix-jobs.mjs`). An explicit `export VAR=...` always overrides
+the file.
+
+Set up on a new machine:
+
+```bash
+cd first390-template-locked
+cp .env.example .env.local   # then fill in this machine's values
+```
+
+Required variables (see `.env.example`):
+
+- `COSYVOICE3_MASTER_API_BASE_URL` — remote CosyVoice3 master-voice TTS API base.
+- `DUIX_HOST` / `DUIX_PORT` / `DUIX_USER` — DUIX/HeyGem GPU host over SSH.
+
+Verify before a full run:
+
+```bash
+curl -sS "$COSYVOICE3_MASTER_API_BASE_URL/health"
+ssh -o BatchMode=yes -p "$DUIX_PORT" "$DUIX_USER@$DUIX_HOST" true
+```

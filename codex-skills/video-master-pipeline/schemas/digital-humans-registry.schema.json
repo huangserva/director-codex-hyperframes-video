@@ -1,0 +1,60 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://director-duix-hyperframes.local/video-master-pipeline/digital-humans-registry.schema.json",
+  "title": "Digital Humans Registry",
+  "type": "object",
+  "required": ["version", "asset_conventions", "humans"],
+  "additionalProperties": false,
+  "properties": {
+    "$schema": { "type": "string" },
+    "version": { "type": "string" },
+    "asset_conventions": {
+      "type": "object",
+      "required": ["description", "recommended_layout", "large_file_policy"],
+      "additionalProperties": false,
+      "properties": {
+        "description": { "type": "string" },
+        "recommended_layout": { "type": "string" },
+        "large_file_policy": { "type": "string" }
+      }
+    },
+    "humans": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": ["id", "name", "persona", "reference_image", "plates", "recommended_voice", "used_in", "notes"],
+        "additionalProperties": false,
+        "properties": {
+          "id": { "type": "string", "pattern": "^dh-[0-9]{2}-[a-z0-9-]+$" },
+          "name": { "type": "string" },
+          "persona": { "type": "string" },
+          "reference_image": { "type": "string" },
+          "plates": {
+            "type": "object",
+            "required": ["presenter", "pip"],
+            "additionalProperties": false,
+            "properties": {
+              "presenter": { "type": "string" },
+              "pip": { "type": "string" }
+            }
+          },
+          "recommended_voice": {
+            "type": "object",
+            "required": ["id", "label", "notes"],
+            "additionalProperties": true,
+            "properties": {
+              "id": { "type": "string" },
+              "label": { "type": "string" },
+              "reference_audio": { "type": "string" },
+              "prompt_text": { "type": "string" },
+              "notes": { "type": "string" }
+            }
+          },
+          "used_in": { "type": "array", "items": { "type": "string" } },
+          "notes": { "type": "string" }
+        }
+      }
+    }
+  }
+}

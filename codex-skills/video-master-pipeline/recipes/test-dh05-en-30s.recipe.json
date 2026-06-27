@@ -1,0 +1,73 @@
+{
+  "$schema": "../schemas/recipe.schema.json",
+  "version": "2026-06-19",
+  "project_id": "test-dh05-en-30s",
+  "title": "dh-05 English 30s recipe-driven presenter clip",
+  "base_dir": "first390-template-locked",
+  "digital_human": {
+    "id": "dh-05-female-dark-blue-suit",
+    "plate_mode": "fullscreen presenter",
+    "notes": "Single-scene English presenter-full render using the registered dh-05 identity and the reused dh03-en-ljspeech voice/audio."
+  },
+  "voice": {
+    "mode": "registered_english_voice",
+    "voice_id": "dh03-en-ljspeech",
+    "engine": "reused_remote_4090_cosyvoice3_direct_english_ljspeech_master",
+    "reference_audio": "first390-template-locked/production/test-dh03-en-30s/voice/en-female-ref-24k.wav",
+    "prompt_text": "first390-template-locked/production/test-dh03-en-30s/voice/en-female-ref.prompt.txt",
+    "notes": "Audio, script, and captions are reused from test-dh03-en-30s because the master audio is identical. This task only swaps the digital-human mouth-sync plate to dh-05."
+  },
+  "script": {
+    "path": "first390-template-locked/production/test-dh03-en-30s/full-script-v1.txt",
+    "version": "v1",
+    "humanizer_status": "reused approved English test script",
+    "pronunciation_notes": ["AI displays as AI", "Captions reuse the spoken-order English known-text forced alignment from test-dh03-en-30s."]
+  },
+  "audio": {
+    "master": "first390-template-locked/production/test-dh03-en-30s/audio/master.wav",
+    "timeline": "first390-template-locked/production/test-dh03-en-30s/audio/timeline.json",
+    "captions": "first390-template-locked/production/test-dh03-en-30s/audio/captions-dh03-en.json",
+    "scene_wav_dir": "first390-template-locked/production/test-dh03-en-30s/audio/scenes",
+    "alignment": "Reused English known-text forced alignment from the identical dh03-en master audio."
+  },
+  "visuals": {
+    "width": 1280,
+    "height": 720,
+    "fps": 30,
+    "manifest": "first390-template-locked/test-dh05-en-30s.manifest.json",
+    "composition_html": "first390-template-locked/index-test-dh05-en-30s.html",
+    "isolated_html": "first390-template-locked/test-dh05-en-30s-isolated/index.html",
+    "style_notes": "Single fullscreen presenter with burned-in 32px English captions in the bottom safe area."
+  },
+  "screen_assets": [],
+  "scenes": [
+    {
+      "id": "s001",
+      "order": 1,
+      "kind": "presenter_full",
+      "script_ref": "S1 single scene presenter full",
+      "start": 0,
+      "duration": 24.9,
+      "component": "HeroAroll",
+      "scene_type": "aroll_emphasis",
+      "duix_result": "first390-template-locked/production/test-dh05-en-30s/duix-results/dh05_en_s001-r.mp4",
+      "scene_wav": "first390-template-locked/production/test-dh03-en-30s/audio/scenes/s001.wav",
+      "frozen": true,
+      "notes": "DUIX result is muted and used only for mouth movement; final audio is the reused continuous master.wav."
+    }
+  ],
+  "outputs": {
+    "silent": "first390-template-locked/render/test-dh05-en-30s-silent.mp4",
+    "final": "first390-template-locked/render/test-dh05-en-30s-final.mp4"
+  },
+  "validation": {
+    "commands": [
+      "node codex-skills/video-master-pipeline/scripts/validate-recipe.mjs codex-skills/video-master-pipeline/recipes/test-dh05-en-30s.recipe.json",
+      "cd first390-template-locked && node scripts/validate-test-dh05-en-30s-pipeline.mjs --final",
+      "cd first390-template-locked/test-dh05-en-30s-isolated && npx --yes hyperframes@0.6.79 lint",
+      "cd first390-template-locked/test-dh05-en-30s-isolated && npx --yes hyperframes@0.6.79 inspect --at 2,13,22 --timeout 120000"
+    ],
+    "audit_frames": [2, 13, 22, 24.75],
+    "notes": "Confirm dh-05 fullscreen presenter, English captions in safe area, face not covered, no final-frame black gap."
+  }
+}

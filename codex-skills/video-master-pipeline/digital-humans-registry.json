@@ -1,0 +1,228 @@
+{
+  "$schema": "./schemas/digital-humans-registry.schema.json",
+  "version": "2026-06-19",
+  "asset_conventions": {
+    "description": "This registry is git-tracked metadata only. Store small reference images under codex-skills/video-master-pipeline/digital-humans/<id>/ when needed. Large driving plates belong under digital-humans/<id>/plates/ or existing production asset directories and must remain gitignored.",
+    "recommended_layout": "codex-skills/video-master-pipeline/digital-humans/<id>/{reference.png,plates/presenter.mp4,plates/pip.mp4}",
+    "large_file_policy": "Do not copy large MP4/WAV/M4A assets into codex-skills. Reference accepted existing production paths or ignored local asset folders."
+  },
+  "humans": [
+    {
+      "id": "dh-01-template3",
+      "name": "memos 黑 T 眼镜男",
+      "persona": "标准科技讲解人，适合 MemOS / Codex / 产品科普类深色科技风视频。",
+      "reference_image": "digital-human-explainer-template/assets/memos-template3-source-ref-1280x720.png",
+      "plates": {
+        "presenter": "digital-human-explainer-template/assets/digital-human-avatar.mp4",
+        "pip": "first120-template-duix/assets/source-circle-pip-6857-12000.mp4"
+      },
+      "recommended_voice": {
+        "id": "master-source-clone",
+        "label": "master/source clone",
+        "reference_audio": "",
+        "notes": "Use the already accepted master or clean source clone voice for standard explainer work."
+      },
+      "used_in": ["memos", "amazon-sop", "first120"],
+      "notes": "Template3-style default presenter. Full-score first120 v10/v11 plates are the same identity and are archived under ignored paths codex-skills/video-master-pipeline/digital-humans/dh-01-template3/plates/first120_v10_99.mp4 and first120_v11_99.mp4."
+    },
+    {
+      "id": "dh-02-laonong",
+      "name": "草帽梯田老农",
+      "persona": "苍老农村男性讲解人，适合 EvoMap Grant 这类反差型横版口播短片。",
+      "reference_image": "codex-skills/video-master-pipeline/digital-humans/dh-02-laonong/reference.png",
+      "plates": {
+        "presenter": "first390-template-locked/production/evomap-grant/avatar-laonong-source.mp4",
+        "pip": "first390-template-locked/production/evomap-grant/avatar-laonong-source.mp4"
+      },
+      "recommended_voice": {
+        "id": "h2-henan-r2",
+        "label": "H2 河南老人克隆音",
+        "reference_audio": "first390-template-locked/production/evomap-grant/voice/henan-refs/r2-dahuang-42p49-56p93.wav",
+        "prompt_text": "first390-template-locked/production/evomap-grant/voice/henan-refs/r2-dahuang-42p49-56p93.prompt.txt",
+        "notes": "黄总选定的 H2 河南老人音色参考。",
+        "sichuan_voice": {
+          "id": "okx-sichuan-dad-bv1ntji6medj",
+          "label": "四川话老男声克隆音",
+          "reference_audio": "first390-template-locked/production/okx-xstocks-laonong/voice/sichuan-ref-24k.wav",
+          "prompt_text": "first390-template-locked/production/okx-xstocks-laonong/voice/sichuan-ref.prompt.txt",
+          "source": "https://www.bilibili.com/video/BV1ntji6mEdj 71.91s-80.77s",
+          "notes": "OKX xStocks 老农片四川话备选；初选 14.02s prompt 触发 short-text-vs-prompt warning，已缩短为 8.86s 同源连续四川话老男声。"
+        }
+      },
+      "used_in": ["evomap-grant", "okx-xstocks-laonong"],
+      "notes": "数字人源来自 production/evomap-grant/avatar-laonong-source.mp4；满分成片库老农板已归档到 ignored path codex-skills/video-master-pipeline/digital-humans/dh-02-laonong/plates/laonong_fullscore.mp4。"
+    },
+    {
+      "id": "dh-03-female-navy-gray",
+      "name": "女主播 A（深蓝开衫 / 灰西装）",
+      "persona": "居家办公感的女科技主播，适合产品教程、工具演示和温和解释型内容。",
+      "reference_image": "codex-skills/video-master-pipeline/digital-humans/dh-03-female-navy-gray/reference.png",
+      "plates": {
+        "presenter": "codex-skills/video-master-pipeline/digital-humans/dh-03-female-navy-gray/plates/female_01_deep-blue-cardigan.mp4",
+        "pip": "codex-skills/video-master-pipeline/digital-humans/dh-03-female-navy-gray/plates/female_01_deep-blue-cardigan.mp4"
+      },
+      "recommended_voice": {
+        "id": "standard-female-or-source-clone",
+        "label": "standard female/source clone",
+        "reference_audio": "",
+        "notes": "Use a clean standard female clone or project-specific source clone; no fixed Chinese voice has been accepted for this identity yet. For English validation, use the english_voice backup below.",
+        "english_voice": {
+          "id": "dh03-en-ljspeech",
+          "label": "native-English female clone (LJSpeech)",
+          "reference_audio": "first390-template-locked/production/test-dh03-en-30s/voice/en-female-ref-24k.wav",
+          "prompt_text": "first390-template-locked/production/test-dh03-en-30s/voice/en-female-ref.prompt.txt",
+          "source": "LJSpeech public-domain single-speaker English female dataset, flexthink/ljspeech mirror, LJ001-0001 + LJ001-0002.",
+          "notes": "Used for the dh-03 English mechanism-validation clip. The 10-15s primary prompt drives the main English clone; a same-speaker short prompt is retained only for short tail repairs when CosyVoice warns that target text is shorter than prompt."
+        }
+      },
+      "used_in": ["digital-human-fullscore-library"],
+      "notes": "Face comparison groups 女_01_深蓝开衫 and 女_04_灰西装 as the same identity with outfit/scene variants. Variant plates are stored under ignored path codex-skills/video-master-pipeline/digital-humans/dh-03-female-navy-gray/plates/."
+    },
+    {
+      "id": "dh-04-female-lightblue",
+      "name": "女主播 B（浅蓝衬衫）",
+      "persona": "明亮亲和的女主播，适合轻量产品讲解、教程开场和生活化办公场景。",
+      "reference_image": "codex-skills/video-master-pipeline/digital-humans/dh-04-female-lightblue/reference.png",
+      "plates": {
+        "presenter": "codex-skills/video-master-pipeline/digital-humans/dh-04-female-lightblue/plates/female_02_light-blue-shirt.mp4",
+        "pip": "codex-skills/video-master-pipeline/digital-humans/dh-04-female-lightblue/plates/female_02_light-blue-shirt.mp4"
+      },
+      "recommended_voice": {
+        "id": "standard-female-or-source-clone",
+        "label": "standard female/source clone",
+        "reference_audio": "",
+        "notes": "Use a clean standard female clone or project-specific source clone; no fixed voice has been accepted for this identity yet."
+      },
+      "used_in": ["digital-human-fullscore-library"],
+      "notes": "女_02_浅蓝衬衫 is visually distinct from the other full-score female hosts, so it is registered as its own identity."
+    },
+    {
+      "id": "dh-05-female-dark-blue-suit",
+      "name": "女主播 C（深西装白衬衫）",
+      "persona": "偏商务咨询感的女主播，适合正式方案、数据解读和 B2B 叙事。",
+      "reference_image": "codex-skills/video-master-pipeline/digital-humans/dh-05-female-dark-blue-suit/reference.png",
+      "plates": {
+        "presenter": "codex-skills/video-master-pipeline/digital-humans/dh-05-female-dark-blue-suit/plates/female_03_dark-suit-white-shirt.mp4",
+        "pip": "codex-skills/video-master-pipeline/digital-humans/dh-05-female-dark-blue-suit/plates/female_03_dark-suit-white-shirt.mp4"
+      },
+      "recommended_voice": {
+        "id": "standard-female-or-source-clone",
+        "label": "standard female/source clone",
+        "reference_audio": "",
+        "notes": "Use a clean standard female clone or project-specific source clone; no fixed voice has been accepted for this identity yet."
+      },
+      "used_in": ["digital-human-fullscore-library"],
+      "notes": "女_03_深西装白衬衫 is not grouped with 女_05; face shape, hair color, and facial features differ enough to keep it as an independent identity."
+    },
+    {
+      "id": "dh-06-female-blue-suit",
+      "name": "女主播 D（蓝西装）",
+      "persona": "清爽职业感女主播，适合清单型教程、SOP 展示和面向开发者的轻商务内容。",
+      "reference_image": "codex-skills/video-master-pipeline/digital-humans/dh-06-female-blue-suit/reference.png",
+      "plates": {
+        "presenter": "codex-skills/video-master-pipeline/digital-humans/dh-06-female-blue-suit/plates/female_05_blue-suit.mp4",
+        "pip": "codex-skills/video-master-pipeline/digital-humans/dh-06-female-blue-suit/plates/female_05_blue-suit.mp4"
+      },
+      "recommended_voice": {
+        "id": "standard-female-or-source-clone",
+        "label": "standard female/source clone",
+        "reference_audio": "",
+        "notes": "Use a clean standard female clone or project-specific source clone; no fixed voice has been accepted for this identity yet."
+      },
+      "used_in": ["digital-human-fullscore-library"],
+      "notes": "女_05_蓝西装 is visually closer to the light-blue-shirt family than to 女_03, but face comparison is not strong enough to merge it; keep as a separate reusable identity."
+    },
+    {
+      "id": "dh-07-m1-green-jacket",
+      "name": "m1 绿外套男",
+      "persona": "年轻理工男讲解人，适合论文、算法和开发者技术解读。",
+      "reference_image": "codex-skills/video-master-pipeline/digital-humans/dh-07-m1-green-jacket/reference.png",
+      "plates": {
+        "presenter": "first390-template-locked/production/worldmodel/avatar-source.mp4",
+        "pip": "first390-template-locked/production/worldmodel/avatar-source.mp4"
+      },
+      "recommended_voice": {
+        "id": "source-clean-clone-or-master",
+        "label": "source clean clone / master",
+        "reference_audio": "first390-template-locked/production/worldmodel/source-ref-clean-24k.wav",
+        "prompt_text": "first390-template-locked/production/worldmodel/source-ref-clean.prompt.txt",
+        "notes": "Worldmodel accepted a clean short source clone for human-sounding narration; master remains fallback for standard narration."
+      },
+      "used_in": ["worldmodel"],
+      "notes": "4090 reference pulled from remote:/home/linux/ComfyUI/input/new_digital_humans_m1/m1_guide_1280x720.png. Local production/worldmodel/avatar-source.mp4 is the current driving plate."
+    },
+    {
+      "id": "dh-08-origintemplate-suit",
+      "name": "origintemplate 西装男",
+      "persona": "正式商务科技男主播，适合企业说明、商单和偏稳重的技术解读。",
+      "reference_image": "codex-skills/video-master-pipeline/digital-humans/dh-08-origintemplate-suit/reference.png",
+      "plates": {
+        "presenter": "codex-skills/video-master-pipeline/digital-humans/dh-08-origintemplate-suit/reference.png",
+        "pip": "codex-skills/video-master-pipeline/digital-humans/dh-08-origintemplate-suit/reference.png"
+      },
+      "recommended_voice": {
+        "id": "master-source-clone",
+        "label": "master/source clone",
+        "reference_audio": "",
+        "notes": "No dedicated accepted voice registered yet; use standard master/source clone unless a project picks a specific voice."
+      },
+      "used_in": ["remote-comfyui-assets"],
+      "notes": "4090 reference pulled from remote:/home/linux/ComfyUI/input/new_digital_humans_origintemplate/origintemplate_guide_1280x720.png. Only small reference is stored locally; no large local driving MP4 has been accepted into this registry yet."
+    },
+    {
+      "id": "dh-09-first120-female",
+      "name": "first120 女版",
+      "persona": "标准办公女讲解人，适合 first120 系列的女性版本、教程和产品解说。",
+      "reference_image": "codex-skills/video-master-pipeline/digital-humans/dh-09-first120-female/reference.png",
+      "plates": {
+        "presenter": "codex-skills/video-master-pipeline/digital-humans/dh-09-first120-female/reference.png",
+        "pip": "codex-skills/video-master-pipeline/digital-humans/dh-09-first120-female/reference.png"
+      },
+      "recommended_voice": {
+        "id": "standard-female-or-source-clone",
+        "label": "standard female/source clone",
+        "reference_audio": "",
+        "notes": "No fixed accepted voice yet; use clean female/source clone when this identity is selected."
+      },
+      "used_in": ["first120-female-template", "remote-comfyui-assets"],
+      "notes": "Remote path named first120_person_female_template/first120_source_guide_1280x720.png visually resolves to the black-T male, so the registered female reference uses female_realroom/female_realroom_anchor_1280x720.png. Keep the naming anomaly in mind before production use."
+    },
+    {
+      "id": "dh-10-director-console",
+      "name": "Director Console 太空女声像",
+      "persona": "带科幻感的太空/控制台角色，适合 Director Console 概念片、实验性视觉和氛围型技术演示。",
+      "reference_image": "codex-skills/video-master-pipeline/digital-humans/dh-10-director-console/reference.png",
+      "plates": {
+        "presenter": "codex-skills/video-master-pipeline/digital-humans/dh-10-director-console/reference.png",
+        "pip": "codex-skills/video-master-pipeline/digital-humans/dh-10-director-console/reference.png"
+      },
+      "recommended_voice": {
+        "id": "project-specific-cinematic",
+        "label": "project-specific cinematic/source clone",
+        "reference_audio": "",
+        "notes": "Pick a project-specific cinematic or source clone voice; no locked voice has been accepted yet."
+      },
+      "used_in": ["director-console", "remote-comfyui-assets"],
+      "notes": "director_console_3seg front/visor/piano assets are treated as one independent character system rather than three identities. Related remote references include director_console_k00_extreme_wide.png, director_console_k01_front_lip.png, and director_console_k02_hands_piano.png."
+    },
+    {
+      "id": "dh-guzhuang-palace-04",
+      "name": "古装宫廷美女 ④",
+      "persona": "华贵古装宫廷女主播，适合世界杯活动样片和古装数字人口播实验。",
+      "reference_image": "first390-template-locked/production/digital-human-candidates/guzhuang-curvy-20260626/images/04_cold_palace_luxury_00001_.png",
+      "plates": {
+        "presenter": "first390-template-locked/production/okx-worldcup-dh-guzhuang/digital-human/A_full_s82_e86/okx_worldcup_guzhuang_A_full_s82_e86_832x1216_25fps.mp4",
+        "pip": "first390-template-locked/production/okx-worldcup-dh-guzhuang/digital-human/A_full_s82_e86/okx_worldcup_guzhuang_A_full_s82_e86_832x1216_25fps.mp4"
+      },
+      "recommended_voice": {
+        "id": "dh03-cosyvoice3-zero-shot",
+        "label": "dh-03 Chinese female clone",
+        "reference_audio": "first390-template-locked/production/test-dh03-30s/voice/dh03-ref-24k.wav",
+        "prompt_text": "first390-template-locked/production/test-dh03-30s/voice/dh03-ref.prompt.txt",
+        "notes": "OKX 世界杯古装美女样片使用 dh-03 中文女声配音，数字人口型由 audio_latent 整轨驱动。"
+      },
+      "used_in": ["okx-worldcup-guzhuang"],
+      "notes": "Z-Image ④ 原图单锚，A 版竖版 99 分 farmer audio_latent 配方输出；large MP4 保留在 production 路径，不复制进 codex-skills。"
+    }
+  ]
+}

@@ -1,0 +1,168 @@
+{
+  "$schema": "../schemas/recipe.schema.json",
+  "version": "2026-06-26-sample-v3-s4-prize-usdt-card",
+  "project_id": "okx-worldcup-guzhuang",
+  "title": "OKX 世界杯古装美女数字人样片 v3 S4 奖池卡修订",
+  "base_dir": "first390-template-locked",
+  "digital_human": {
+    "id": "dh-guzhuang-palace-04",
+    "plate_mode": "A_full_s82_e86 reused for frozen scenes; S4_v3_s82_e86 regenerated only for S4",
+    "notes": "S1/S2/S3/S5 keep existing mouth-driven video segments. S4 uses the same ④ anchor and farmer 99-point formula with START 0.82 / END 0.86."
+  },
+  "voice": {
+    "mode": "s4_only_cosyvoice3_rerun",
+    "voice_id": "dh03-cosyvoice3-zero-shot",
+    "engine": "local CosyVoice3 direct zero_shot",
+    "reference_audio": "first390-template-locked/production/test-dh03-30s/voice/dh03-ref-24k.wav",
+    "prompt_text": "first390-template-locked/production/test-dh03-30s/voice/dh03-ref.prompt.txt",
+    "notes": "Only S4 was regenerated. S1/S2/S3/S5 scene wavs are frozen from v1 and assembled into master-wc-v3.wav."
+  },
+  "script": {
+    "path": "first390-template-locked/production/okx-worldcup-dh-guzhuang/full-script-v3-display.txt",
+    "version": "v3 S4 prize USDT revision",
+    "pronunciation_notes": [
+      "TTS稿读法为 O-K-X / B-T-C / U-S-D-T / D-E-X。",
+      "渲染字幕使用 display 稿干净写法，不暴露 TTS 拼读 token。",
+      "单场加码奖池使用 USDT；无 USDC。"
+    ]
+  },
+  "audio": {
+    "master": "first390-template-locked/production/okx-worldcup-dh-guzhuang/audio/master-wc-v3.wav",
+    "timeline": "first390-template-locked/production/okx-worldcup-dh-guzhuang/audio/timeline-wc-v3.json",
+    "captions": "first390-template-locked/production/okx-worldcup-dh-guzhuang/audio/captions-wc-v3.json",
+    "scene_wav_dir": "first390-template-locked/production/okx-worldcup-dh-guzhuang/audio/scenes-v3",
+    "alignment": "first390-template-locked/production/okx-worldcup-dh-guzhuang/audio/forced-align-wc-v3.json"
+  },
+  "visuals": {
+    "width": 1280,
+    "height": 720,
+    "fps": 30,
+    "manifest": "first390-template-locked/okx-worldcup-guzhuang.manifest.json",
+    "composition_html": "first390-template-locked/index-okx-worldcup-guzhuang.html",
+    "isolated_html": "first390-template-locked/okx-worldcup-guzhuang-isolated/index.html",
+    "style_notes": "S1/S4 full-screen football b-roll + right-bottom circular PIP. S4 replaces app screenshot with a clean right-side prize UI card. S2/S3/S5 keep LeftPresenterSplit."
+  },
+  "screen_assets": [
+    {
+      "id": "team-france",
+      "path": "first390-template-locked/production/okx-worldcup-dh-guzhuang/broll-teams/broll-France-sample-720p.mp4",
+      "muted": true,
+      "notes": "Sample team b-roll, watermark/source marks retained."
+    },
+    {
+      "id": "team-spain",
+      "path": "first390-template-locked/production/okx-worldcup-dh-guzhuang/broll-teams/broll-Spain-sample-720p.mp4",
+      "muted": true,
+      "notes": "Sample team b-roll, watermark/source marks retained."
+    },
+    {
+      "id": "team-uruguay",
+      "path": "first390-template-locked/production/okx-worldcup-dh-guzhuang/broll-teams/broll-Uruguay-sample-720p.mp4",
+      "muted": true,
+      "notes": "Sample team b-roll for S4 prize/example scene, watermark/source marks retained."
+    },
+    {
+      "id": "team-senegal",
+      "path": "first390-template-locked/production/okx-worldcup-dh-guzhuang/broll-teams/broll-Senegal-sample-720p.mp4",
+      "muted": true,
+      "notes": "Sample team b-roll, watermark/source marks retained."
+    },
+    {
+      "id": "schedule-card",
+      "path": "first390-template-locked/production/okx-worldcup-dh-guzhuang/okx-worldcup-schedule-card-2026-06-27-video-crop.png",
+      "muted": true,
+      "notes": "Cropped schedule image for 720p readability."
+    }
+  ],
+  "scenes": [
+    {
+      "id": "s001",
+      "order": 1,
+      "kind": "screen_recording_pip",
+      "script_ref": "开场：世界杯赛程时间点",
+      "start": 0.12,
+      "duration": 19.0,
+      "component": "ScreenWithPip",
+      "scene_type": "screen_demo_pip",
+      "pip_duix_result": "first390-template-locked/production/okx-worldcup-dh-guzhuang/digital-human/A_full_s82_e86/okx_worldcup_guzhuang_A_full_s82_e86_832x1216_25fps.mp4",
+      "screen_asset": "team-france",
+      "scene_wav": "first390-template-locked/production/okx-worldcup-dh-guzhuang/audio/scenes-v1/s001.wav",
+      "frozen": true,
+      "notes": "Frozen from v1/v2."
+    },
+    {
+      "id": "s002",
+      "order": 2,
+      "kind": "component_pip",
+      "script_ref": "赛程：六场小组赛收尾",
+      "start": 19.28,
+      "duration": 19.72,
+      "component": "LeftPresenterSplit",
+      "scene_type": "split_left_presenter",
+      "pip_duix_result": "first390-template-locked/production/okx-worldcup-dh-guzhuang/digital-human/A_full_s82_e86/okx_worldcup_guzhuang_A_full_s82_e86_832x1216_25fps.mp4",
+      "screen_asset": "schedule-card",
+      "scene_wav": "first390-template-locked/production/okx-worldcup-dh-guzhuang/audio/scenes-v1/s002.wav",
+      "frozen": true,
+      "notes": "Frozen from v1/v2."
+    },
+    {
+      "id": "s003",
+      "order": 3,
+      "kind": "component_pip",
+      "script_ref": "OKX Outcomes 活动玩法",
+      "start": 39.16,
+      "duration": 23.28,
+      "component": "LeftPresenterSplit",
+      "scene_type": "split_left_presenter",
+      "pip_duix_result": "first390-template-locked/production/okx-worldcup-dh-guzhuang/digital-human/A_full_s82_e86/okx_worldcup_guzhuang_A_full_s82_e86_832x1216_25fps.mp4",
+      "screen_asset": "team-spain",
+      "scene_wav": "first390-template-locked/production/okx-worldcup-dh-guzhuang/audio/scenes-v1/s003.wav",
+      "frozen": true,
+      "notes": "Frozen from v1/v2."
+    },
+    {
+      "id": "s004",
+      "order": 4,
+      "kind": "screen_recording_pip",
+      "script_ref": "总奖池与单场 USDT 加码",
+      "start": 62.6,
+      "duration": 28.32,
+      "component": "ScreenWithPip",
+      "scene_type": "screen_demo_pip",
+      "pip_duix_result": "first390-template-locked/production/okx-worldcup-dh-guzhuang/digital-human/S4_v3_s82_e86/okx_worldcup_guzhuang_S4_v3_s82_e86_832x1216_25fps.mp4",
+      "screen_asset": "team-uruguay",
+      "scene_wav": "first390-template-locked/production/okx-worldcup-dh-guzhuang/audio/scenes-v3/s004.wav",
+      "frozen": false,
+      "notes": "Only changed scene. Clean UI card includes 16.66 BTC, 50,000 USDT, Uruguay vs Spain example, and official-page disclaimer."
+    },
+    {
+      "id": "s005",
+      "order": 5,
+      "kind": "component_pip",
+      "script_ref": "规则与 CTA",
+      "start": 91.08,
+      "duration": 23.52,
+      "component": "LeftPresenterSplit",
+      "scene_type": "split_left_presenter",
+      "pip_duix_result": "first390-template-locked/production/okx-worldcup-dh-guzhuang/digital-human/A_full_s82_e86/okx_worldcup_guzhuang_A_full_s82_e86_832x1216_25fps.mp4",
+      "screen_asset": "team-senegal",
+      "scene_wav": "first390-template-locked/production/okx-worldcup-dh-guzhuang/audio/scenes-v1/s005.wav",
+      "frozen": true,
+      "notes": "Frozen audio/visual segment reused; starts later because S4 is longer."
+    }
+  ],
+  "outputs": {
+    "silent": "first390-template-locked/render/okx-worldcup-guzhuang-sample-v3-silent.mp4",
+    "final": "first390-template-locked/render/okx-worldcup-guzhuang-sample-v3.mp4"
+  },
+  "validation": {
+    "commands": [
+      "node codex-skills/video-master-pipeline/scripts/validate-recipe.mjs codex-skills/video-master-pipeline/recipes/okx-worldcup-guzhuang-v3.recipe.json",
+      "cd first390-template-locked && node scripts/validate-okx-worldcup-guzhuang-pipeline.mjs --final",
+      "cd first390-template-locked && npx --yes hyperframes@0.6.79 lint okx-worldcup-guzhuang-isolated --json",
+      "cd first390-template-locked && npx --yes hyperframes@0.6.79 inspect okx-worldcup-guzhuang-isolated --at 2,20,30,43,68,76,82,96,111 --timeout 180000 --json"
+    ],
+    "audit_frames": [2, 20, 30, 43, 68, 76, 82, 96, 111],
+    "notes": "Confirm S4 prize card readability, no USDC, no app screenshot, no line wrap in OKX App activity-page boxes, mouth sync, and captions in safe area."
+  }
+}

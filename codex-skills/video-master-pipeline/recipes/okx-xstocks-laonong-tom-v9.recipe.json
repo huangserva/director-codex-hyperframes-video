@@ -1,0 +1,168 @@
+{
+  "$schema": "../schemas/recipe.schema.json",
+  "version": "2026-06-23-v9-1p35x",
+  "project_id": "okx-xstocks-laonong-tom-v9",
+  "title": "OKX xStocks 老农四川话 v9 1.35x speedup",
+  "base_dir": "first390-template-locked",
+  "digital_human": {
+    "id": "dh-02-laonong",
+    "plate_mode": "v8d locked presenter clips time-compressed to 1.35x",
+    "notes": "No DUIX rerun. v7 DUIX video-only presenter clips are retimed with setpts=PTS/1.35 and reused as fullscreen/PIP so mouth motion, visuals, and atempo audio share one speed factor."
+  },
+  "voice": {
+    "mode": "locked_existing_master_speedup",
+    "voice_id": "s1-dnn-clean-v7-atempo-1p35",
+    "engine": "ffmpeg_atempo_only",
+    "reference_audio": "first390-template-locked/production/okx-xstocks-laonong-tom/voice/sichuan-refs-v4/s1-dnn-clean.wav",
+    "prompt_text": "first390-template-locked/production/okx-xstocks-laonong-tom/voice/sichuan-refs-v4/s1-dnn-clean.prompt.txt",
+    "notes": "No TTS rerun and no pitch shift. Final mux uses first390-template-locked/production/okx-xstocks-laonong-tom/audio/master-okx-v9-1p35x.wav generated from master-okx-v7.wav with atempo=1.35."
+  },
+  "script": {
+    "path": "first390-template-locked/production/okx-xstocks-laonong-tom/full-script-v4-compressed-display.txt",
+    "version": "v4-compressed-display unchanged",
+    "pronunciation_notes": [
+      "No wording or pronunciation token changes in v9.",
+      "Captions remain clean display terms from captions-okx-tom-v9-1p35x.json, derived by scaling v7 captions."
+    ]
+  },
+  "audio": {
+    "master": "first390-template-locked/production/okx-xstocks-laonong-tom/audio/master-okx-v9-1p35x.wav",
+    "source_master": "first390-template-locked/production/okx-xstocks-laonong-tom/audio/master-okx-v7.wav",
+    "speed_factor": 1.35,
+    "timeline": "first390-template-locked/production/okx-xstocks-laonong-tom/audio/timeline-v9-1p35x.json",
+    "captions": "first390-template-locked/production/okx-xstocks-laonong-tom/audio/captions-okx-tom-v9-1p35x.json",
+    "scene_wav_dir": "first390-template-locked/production/okx-xstocks-laonong-tom/audio/scenes-v9-1p35x",
+    "alignment": "scaled from v7 line captions by dividing all timestamps by 1.35"
+  },
+  "visuals": {
+    "width": 1280,
+    "height": 720,
+    "fps": 30,
+    "manifest": "first390-template-locked/okx-xstocks-laonong-tom-v9.manifest.json",
+    "composition_html": "first390-template-locked/index-okx-xstocks-laonong-tom-v9.html",
+    "isolated_html": "first390-template-locked/okx-xstocks-laonong-tom-v9-isolated/index.html",
+    "style_notes": "Exact v8d visual/section-title scheme with all clip starts and durations divided by 1.35."
+  },
+  "screen_assets": [
+    {
+      "id": "stock-charts-cc0",
+      "path": "first390-template-locked/production/okx-xstocks-laonong-tom/assets/broll-v8/raw/stock-charts-cc0.jpg",
+      "muted": true,
+      "notes": "Wikimedia Commons CC0 stock chart."
+    },
+    {
+      "id": "okx-dex-swap",
+      "path": "first390-template-locked/production/okx-xstocks-laonong-tom/assets/broll-v8/screenshots-clean/okx-dex-swap-clean.png",
+      "muted": true,
+      "notes": "OKX official public DEX Swap screenshot, clean."
+    },
+    {
+      "id": "concept-tokenized-stocks",
+      "path": "first390-template-locked/production/okx-xstocks-laonong-tom/assets/broll-v8/generated/concept-tokenized-stocks.png",
+      "muted": true,
+      "notes": "Self-generated neutral tokenized stock concept card."
+    },
+    {
+      "id": "concept-prize-leaderboard",
+      "path": "first390-template-locked/production/okx-xstocks-laonong-tom/assets/broll-v8/generated/concept-prize-leaderboard.png",
+      "muted": true,
+      "notes": "Self-generated neutral competition/prize concept card."
+    },
+    {
+      "id": "concept-ice-okx-fact-card",
+      "path": "first390-template-locked/production/okx-xstocks-laonong-tom/assets/broll-v8/generated/concept-ice-okx-fact-card.png",
+      "muted": true,
+      "notes": "Self-generated neutral ICE/OKX fact card based on ICE official news release."
+    },
+    {
+      "id": "concept-boost-entry",
+      "path": "first390-template-locked/production/okx-xstocks-laonong-tom/assets/broll-v8/generated/concept-boost-entry.png",
+      "muted": true,
+      "notes": "Self-generated neutral wallet Boost entry concept card."
+    }
+  ],
+  "scenes": [
+    {
+      "id": "s001",
+      "order": 1,
+      "kind": "screen_recording_pip",
+      "script_ref": "开场：老农、人设、传统美股麻烦、OKX DEX 解决方案",
+      "start": 0,
+      "duration": 13.422,
+      "component": "HeroAroll + ScreenWithPip",
+      "duix_result": "first390-template-locked/production/okx-xstocks-laonong-tom/duix-results-v9-1p35x/okx_tom_v9_s001-r.mp4",
+      "pip_duix_result": "first390-template-locked/production/okx-xstocks-laonong-tom/duix-results-v9-1p35x/okx_tom_v9_s001-r.mp4",
+      "screen_asset": "okx-dex-swap",
+      "scene_wav": "first390-template-locked/production/okx-xstocks-laonong-tom/audio/scenes-v9-1p35x/s001.wav",
+      "frozen": true
+    },
+    {
+      "id": "s002",
+      "order": 2,
+      "kind": "component_pip",
+      "script_ref": "链上股票、TSLAx/AAPLx、24小时、0手续费",
+      "start": 13.422,
+      "duration": 15.844,
+      "component": "ScreenWithPip",
+      "pip_duix_result": "first390-template-locked/production/okx-xstocks-laonong-tom/duix-results-v9-1p35x/okx_tom_v9_s002-r.mp4",
+      "screen_asset": "concept-tokenized-stocks",
+      "scene_wav": "first390-template-locked/production/okx-xstocks-laonong-tom/audio/scenes-v9-1p35x/s002.wav",
+      "frozen": true
+    },
+    {
+      "id": "s003",
+      "order": 3,
+      "kind": "component_pip",
+      "script_ref": "交易赛、交易量排名、前5000、300000 USDC",
+      "start": 29.267,
+      "duration": 13.481,
+      "component": "ScreenWithPip",
+      "pip_duix_result": "first390-template-locked/production/okx-xstocks-laonong-tom/duix-results-v9-1p35x/okx_tom_v9_s003-r.mp4",
+      "screen_asset": "concept-prize-leaderboard",
+      "scene_wav": "first390-template-locked/production/okx-xstocks-laonong-tom/audio/scenes-v9-1p35x/s003.wav",
+      "frozen": true
+    },
+    {
+      "id": "s004",
+      "order": 4,
+      "kind": "screen_recording_pip",
+      "script_ref": "ICE 投 OKX、股票上链、下一代入口",
+      "start": 42.748,
+      "duration": 13.689,
+      "component": "HeroAroll + ScreenWithPip",
+      "duix_result": "first390-template-locked/production/okx-xstocks-laonong-tom/duix-results-v9-1p35x/okx_tom_v9_s004-r.mp4",
+      "pip_duix_result": "first390-template-locked/production/okx-xstocks-laonong-tom/duix-results-v9-1p35x/okx_tom_v9_s004-r.mp4",
+      "screen_asset": "concept-ice-okx-fact-card",
+      "scene_wav": "first390-template-locked/production/okx-xstocks-laonong-tom/audio/scenes-v9-1p35x/s004.wav",
+      "frozen": true
+    },
+    {
+      "id": "s005",
+      "order": 5,
+      "kind": "screen_recording_pip",
+      "script_ref": "截止、Boost 找交易赛、小额试、收尾",
+      "start": 56.437,
+      "duration": 14.348,
+      "component": "SummaryCta + ScreenWithPip",
+      "duix_result": "first390-template-locked/production/okx-xstocks-laonong-tom/duix-results-v9-1p35x/okx_tom_v9_s005-r.mp4",
+      "pip_duix_result": "first390-template-locked/production/okx-xstocks-laonong-tom/duix-results-v9-1p35x/okx_tom_v9_s005-r.mp4",
+      "screen_asset": "concept-boost-entry",
+      "scene_wav": "first390-template-locked/production/okx-xstocks-laonong-tom/audio/scenes-v9-1p35x/s005.wav",
+      "frozen": true
+    }
+  ],
+  "outputs": {
+    "silent": "first390-template-locked/render/okx-xstocks-laonong-tom-v9-silent.mp4",
+    "final": "first390-template-locked/render/okx-xstocks-laonong-tom-v9-final.mp4"
+  },
+  "validation": {
+    "commands": [
+      "node codex-skills/video-master-pipeline/scripts/validate-recipe.mjs codex-skills/video-master-pipeline/recipes/okx-xstocks-laonong-tom-v9.recipe.json",
+      "cd first390-template-locked && node scripts/validate-okx-xstocks-laonong-tom-v9-pipeline.mjs --final",
+      "cd first390-template-locked/okx-xstocks-laonong-tom-v9-isolated && npm_config_ignore_scripts=true npx --yes hyperframes@0.6.79 lint",
+      "cd first390-template-locked/okx-xstocks-laonong-tom-v9-isolated && npm_config_ignore_scripts=true npx --yes hyperframes@0.6.79 inspect --at 2,6,9,18,32,41,48,55,62,69 --timeout 180000"
+    ],
+    "audit_frames": [2, 6, 9, 18, 32, 41, 48, 55, 62, 69],
+    "notes": "Check global 1.35x speedup keeps audio, captions, presenter mouth motion, section labels, and visuals synchronized."
+  }
+}

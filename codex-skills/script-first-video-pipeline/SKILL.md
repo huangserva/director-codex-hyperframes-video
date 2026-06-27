@@ -57,6 +57,16 @@ For Coze 3.0 local-Agent videos, the message must make the product and outcome e
 
 If the source files are numbered, respect that order. Do not reorder the script away from the recorded demo path unless the user approves. The game result is not a side note; it is the proof at the end.
 
+### 1.5 De-AI Gate (MANDATORY before TTS)
+
+Before any narration text is sent to TTS, it MUST pass through the `humanizer-zh` skill (sibling skill in this `codex-skills/` directory). This is a hard gate, not optional polish.
+
+- Run the full narration script through `humanizer-zh` and apply its rewrite. The biggest trap it catches for Huang: **去AI味 is NOT adding vivid metaphors or punchy "金句" — the performative, every-sentence-tries-hard register IS the AI tell.** Specifically banned phrasings Huang flagged: 很硬的结论、它的刀很直、掰了回来、撂下一句很冲的话、焊死在一起、硬逼到台面上、你品. Plain, relaxed sentences are better than quotable ones.
+- Also enforce: 段落承接要设计——每场末句埋钩子，下一场首句用平实指代/反问接住，整篇当一个人一口气讲完，而不是各自冷启动的模块。承接靠自然指代和逻辑，不靠金句。
+- Keep meaning, attribution口径 (这篇研究/作者/DeepMind 说), terminology, and TTS letter-reading marks intact through the rewrite.
+- Self-check against humanizer-zh's 50-point rubric (直接性/节奏/信任度/真实性/精炼度). Aim ≥45. Read the result aloud — if any sentence is "秀"/端着/追求画面感, flatten it.
+- Save the humanized narration as the production script (e.g. `full-script-vN.txt`) and use THAT for TTS. Note in the report that humanizer-zh was run.
+
 ### 2. Generate TTS Before Timing
 
 Use narration as the source of truth for duration.
@@ -73,6 +83,31 @@ TTS acceptance checkpoint:
 ```text
 Script approved -> TTS generated -> TTS listened to alone -> only then lock video timing.
 ```
+
+#### Voice Personality Decision Rule
+
+Default to an approved standard clone voice unless the script's persona explicitly requires a non-standard voice.
+
+- **Standard clone voice is the normal path.** Use the stable 4090 master voice or an already-approved clean source clone for most product, technical, and explainer videos. This is the baseline used for families such as memos, amazon-sop, anthropic, and worldmodel.
+- **Character voice is opt-in.** Only search for a special reference when the on-screen persona or creative brief needs a non-standard voice: elderly, raspy, dialect, regional accent, rural character, dramatic role voice, or another concrete voice trait. Dialect is only one possible trait. Do not make "use dialect" the default rule for every video.
+- **Core principle:** voice character comes from the reference audio itself. CosyVoice-style zero-shot engines tend to normalize toward clean standard Mandarin. They cannot reliably create elderly/raspy/dialect/regional character from a plain prompt. If the desired trait matters, clone a real reference segment that already contains that trait.
+
+Decision checklist:
+
+```text
+Does this video need a standard narrator or a character voice?
+If standard -> reuse the approved master/source clone route.
+If character -> find real reference audio with that trait, generate S1 candidates, get human A/B approval, then regenerate the full narration.
+```
+
+Hard rules for character/reference voices:
+
+- `prompt_text` must be the exact verbatim transcript of the reference segment. Do not insert style instructions such as `苍老`, `沙哑`, `农村老人`, `方言口音`, or `不要播音腔` into zero-shot `prompt_text`. Those words are not in the reference audio and can collapse the clone.
+- Pick 10-15s of clean single-speaker reference audio when possible: no music, no crosstalk, no large pauses, no clipped words. Convert and verify as 24kHz mono WAV unless the selected engine requires otherwise.
+- For dialect/elderly/character references, useful sources include Bilibili public clips when accessible from domestic network paths, and ModelScope/HF speech datasets such as `BAAI/SeniorTalk`. YouTube is often blocked/403 from both local and 4090 paths, so do not make it the primary route.
+- When timbre is uncertain, generate only a short S1/S-hook audition set as `.m4a` files. Compare routes or references there, let 黄总 choose by ear, and only then regenerate the full film. Do not burn time regenerating an entire video to test a voice.
+- If CosyVoice normalizes away too much character, use fish-speech as a second clone engine when available. On the DUIX 3090 deployment, `duix-avatar-tts` (`guiji2025/fish-speech-ziming`) exposes `/v1/invoke` inside the container; the useful payload fields are `text`, `reference_audio`, `reference_text`, `format`, `chunk_length`, `max_new_tokens`, `top_p`, `repetition_penalty`, `temperature`, `normalize`, `streaming`, and `use_memory_cache`. Fish-speech can preserve character timbre more aggressively than CosyVoice, but still needs a verbatim reference transcript and human A/B selection.
+- Preserve accepted scenes. If only one scene or a small insert changes, regenerate only that scene's per-scene WAV, reuse the frozen scene WAVs, then rebuild the continuous master track in scene order. This keeps untouched scenes bit-stable and avoids full-film TTS drift.
 
 #### Local CosyVoice Voice Clone Route
 

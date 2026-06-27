@@ -1,0 +1,135 @@
+{
+  "$schema": "../schemas/recipe.schema.json",
+  "version": "2026-06-22-v4",
+  "project_id": "okx-xstocks-laonong-tom-v4",
+  "title": "OKX xStocks 老农四川话压缩稿 v4 final",
+  "base_dir": "first390-template-locked",
+  "digital_human": {
+    "id": "dh-02-laonong",
+    "plate_mode": "fullscreen presenter plus lower-left circular PIP",
+    "notes": "v4 compressed Sichuan grandpa version; local DUIX and local CosyVoice3 s1 zero-shot."
+  },
+  "voice": {
+    "mode": "character_voice_reference_clone",
+    "voice_id": "s1-bv15-grandpa",
+    "engine": "local_cosyvoice3_inference_zero_shot",
+    "reference_audio": "first390-template-locked/production/okx-xstocks-laonong-tom/voice/sichuan-refs-v2/s1-bv15-grandpa-0p37-14p03.wav",
+    "prompt_text": "first390-template-locked/production/okx-xstocks-laonong-tom/voice/sichuan-refs-v2/s1-bv15-grandpa-0p37-14p03.prompt.txt",
+    "notes": "黄总确认音色合格；speed=1.0；zero pitch；prompt_text is helper prefix plus verbatim transcript at generation time."
+  },
+  "script": {
+    "path": "first390-template-locked/production/okx-xstocks-laonong-tom/full-script-v4-compressed.txt",
+    "version": "v4-compressed",
+    "pronunciation_notes": [
+      "OKX -> O-K-X",
+      "USDC -> U-S-D-C",
+      "ICE -> I-C-E",
+      "TSLAx -> 特斯拉x",
+      "AAPLx -> 苹果x",
+      "Boost kept as English"
+    ]
+  },
+  "audio": {
+    "master": "first390-template-locked/production/okx-xstocks-laonong-tom/audio/master-okx-v4.wav",
+    "timeline": "first390-template-locked/production/okx-xstocks-laonong-tom/audio/timeline-v4.json",
+    "captions": "first390-template-locked/production/okx-xstocks-laonong-tom/audio/captions-okx-tom-v4.json",
+    "scene_wav_dir": "first390-template-locked/production/okx-xstocks-laonong-tom/audio/scenes-v4",
+    "alignment": "Chinese known-text forced alignment with FunASR fa-zh full-track; display text comes from v4 compressed script."
+  },
+  "visuals": {
+    "width": 1280,
+    "height": 720,
+    "fps": 30,
+    "manifest": "first390-template-locked/okx-xstocks-laonong-tom-v4.manifest.json",
+    "composition_html": "first390-template-locked/index-okx-xstocks-laonong-tom-v4.html",
+    "isolated_html": "first390-template-locked/okx-xstocks-laonong-tom-v4-isolated/index.html",
+    "style_notes": "S1/S4/S5 full-screen old farmer. S2/S3 main OKX campaign image with one lower-left circular old-farmer PIP and burned-in known-text Chinese captions."
+  },
+  "screen_assets": [
+    {
+      "id": "hero-bull",
+      "path": "first390-template-locked/production/okx-xstocks-laonong-tom/assets/hero-bull.png",
+      "muted": true,
+      "notes": "Still campaign visual used as S2 main stage."
+    },
+    {
+      "id": "prize-300k-usdc",
+      "path": "first390-template-locked/production/okx-xstocks-laonong-tom/assets/prize-300k-usdc.png",
+      "muted": true,
+      "notes": "Still prize-pool visual used as S3 main stage."
+    }
+  ],
+  "scenes": [
+    {
+      "id": "s001",
+      "order": 1,
+      "kind": "presenter_full",
+      "script_ref": "S1 开场",
+      "start": 0,
+      "duration": 21.24,
+      "component": "HeroAroll",
+      "duix_result": "first390-template-locked/production/okx-xstocks-laonong-tom/duix-results/okx_tom_v4_s001-r.mp4",
+      "scene_wav": "first390-template-locked/production/okx-xstocks-laonong-tom/audio/scenes-v4/s001.wav"
+    },
+    {
+      "id": "s002",
+      "order": 2,
+      "kind": "component_pip",
+      "script_ref": "S2 链上股票",
+      "start": 21.24,
+      "duration": 20.73,
+      "component": "OkxHeroBullImageWithPip",
+      "pip_duix_result": "first390-template-locked/production/okx-xstocks-laonong-tom/duix-results/okx_tom_v4_s002-r.mp4",
+      "screen_asset": "hero-bull",
+      "scene_wav": "first390-template-locked/production/okx-xstocks-laonong-tom/audio/scenes-v4/s002.wav"
+    },
+    {
+      "id": "s003",
+      "order": 3,
+      "kind": "component_pip",
+      "script_ref": "S3 交易赛奖池",
+      "start": 41.97,
+      "duration": 20.71,
+      "component": "OkxPrizeImageWithPip",
+      "pip_duix_result": "first390-template-locked/production/okx-xstocks-laonong-tom/duix-results/okx_tom_v4_s003-r.mp4",
+      "screen_asset": "prize-300k-usdc",
+      "scene_wav": "first390-template-locked/production/okx-xstocks-laonong-tom/audio/scenes-v4/s003.wav"
+    },
+    {
+      "id": "s004",
+      "order": 4,
+      "kind": "presenter_full",
+      "script_ref": "S4 往大了说",
+      "start": 62.68,
+      "duration": 23.31,
+      "component": "HeroAroll",
+      "duix_result": "first390-template-locked/production/okx-xstocks-laonong-tom/duix-results/okx_tom_v4_s004-r.mp4",
+      "scene_wav": "first390-template-locked/production/okx-xstocks-laonong-tom/audio/scenes-v4/s004.wav"
+    },
+    {
+      "id": "s005",
+      "order": 5,
+      "kind": "summary",
+      "script_ref": "S5 收尾",
+      "start": 85.99,
+      "duration": 22.81,
+      "component": "SummaryAroll",
+      "duix_result": "first390-template-locked/production/okx-xstocks-laonong-tom/duix-results/okx_tom_v4_s005-r.mp4",
+      "scene_wav": "first390-template-locked/production/okx-xstocks-laonong-tom/audio/scenes-v4/s005.wav"
+    }
+  ],
+  "outputs": {
+    "silent": "first390-template-locked/render/okx-xstocks-laonong-tom-v4-silent.mp4",
+    "final": "first390-template-locked/render/okx-xstocks-laonong-tom-v4-final.mp4"
+  },
+  "validation": {
+    "commands": [
+      "node codex-skills/video-master-pipeline/scripts/validate-recipe.mjs codex-skills/video-master-pipeline/recipes/okx-xstocks-laonong-tom-v4.recipe.json",
+      "cd first390-template-locked && node scripts/validate-okx-xstocks-laonong-tom-v4-pipeline.mjs --final",
+      "cd first390-template-locked/okx-xstocks-laonong-tom-v4-isolated && npm_config_ignore_scripts=true npx --yes hyperframes@0.6.79 lint",
+      "cd first390-template-locked/okx-xstocks-laonong-tom-v4-isolated && npm_config_ignore_scripts=true npx --yes hyperframes@0.6.79 inspect --at 2,30,52,73,96 --timeout 180000"
+    ],
+    "audit_frames": [2, 30, 52, 73, 96],
+    "notes": "Check old-farmer full scenes, both image+PIP scenes, subtitles safe at 34px, no black frame, final audio from the single master-okx-v4.wav."
+  }
+}

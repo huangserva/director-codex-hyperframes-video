@@ -48,6 +48,9 @@ The visual reference source video is not committed. If available locally, use it
 - For 390.77s/full-length work, run `npm run validate:template` inside `first390-template-locked` before writing render HTML or generating video. Warnings for TODO audio/video assets are allowed only during planning; they are blockers for a final render.
 - For 390.77s/full-length final renders, `npm run validate:final` must pass. If it fails, do not present the video as final.
 - Timed `<video>` media in generated HyperFrames HTML must be root-level clips, not nested inside another timed clip; nested timed video can freeze in renders.
+- For dialect voices, old voices, English-heavy scripts, and brand/model terms, subtitle timing must use known-text forced alignment: align the approved narration text to audio, never use ASR-recognized text as the display source or primary timing anchor.
+- When inserting real screen recordings as main scene media, mute the recording and all DUIX slots. The final file still uses one continuous master narration track.
+- 1280x720 horizontal explainers and custom presenter identities are valid when the project requires them. Keep the same anti-drift standards: registered components, explicit scene types, visible captions, no face cover, and final lint/inspect/frame review.
 
 ## Accepted References
 
@@ -67,8 +70,7 @@ For the DUIX/CosyVoice/ASR production workflow and known failure modes, read `re
 3. For 390.77s/full-source extensions, do the audio pass before the visual pass:
    - finalize the full narration script;
    - generate or accept one continuous master audio file;
-   - run ASR on that final master audio;
-   - build the caption timeline from ASR;
+   - build the caption timeline from the approved script text aligned to that final master audio;
    - build the DUIX slice map from the same master audio.
 4. Only after the audio pass, update `first390-template-locked/data/scene-map-390.json`, including `scene_type` for every scene, and update `data/asset-manifest.json`.
 5. Generate the render HTML with visible burned-in subtitle clips from the ASR caption timeline. Do not treat a caption JSON file alone as subtitles in the final video.
@@ -76,6 +78,8 @@ For the DUIX/CosyVoice/ASR production workflow and known failure modes, read `re
 7. Inspect the user-reported timestamp first. Extract a frame from the current render and compare it to the source/reference.
 8. Make the smallest scoped HTML/CSS/GSAP change that fixes the issue.
 9. If changing narration, digital-human video, subtitle text, or speed, rebuild the continuous master audio first, regenerate DUIX video slots from slices of that master audio, keep all DUIX video elements muted, then rebuild the caption track from ASR on the final master audio. Confirm no stale old caption clips remain on the subtitle track.
+   - Preferred caption rebuild: per-scene known-text forced alignment using timeline scene boundaries. Do not let one scene's timing drift into another scene.
+   - If only one scene changes, keep unchanged scene layouts and DUIX outputs frozen, update the timeline, rebuild captions, and shift downstream scene starts according to the new timeline.
 10. Run:
 
 ```bash
@@ -119,6 +123,25 @@ For 390.77s work, every scene must declare `scene_type` and use the matching acc
 
 Do not choose components by visual convenience. Choose scene type from the narration purpose, then use the locked component.
 
+## Horizontal And Custom Presenter Variants
+
+The original accepted system is a dark 1920x1080 tech presenter template, but production work may also use 1280x720 horizontal videos and non-standard presenter identities such as a farmer, founder, or product host. In those cases:
+
+- Keep output dimensions explicit in the manifest and root composition.
+- Add the smallest new registered components needed for the subject instead of mutating locked components. Examples include reconstructed Amazon SOP screen UI components and EvoMap warm card components.
+- Keep custom components under the same validator discipline: declared props schema, legal scene type, text budget, single PIP where applicable, no face cover, and frame audit before completion.
+- Do not force black-gold HUD styling onto a subject where it clashes with the accepted direction; preserve readability and the intended production identity while keeping component boundaries locked.
+
+## Screen Recording Scenes
+
+Use real screen recordings as scene media only when the recording is the subject of the scene, normally with `screen_demo_pip` / `ScreenWithPip`:
+
+- Fit or crop the recording to the target canvas without stretching or changing aspect ratio.
+- The recording must be muted. Final audio comes only from the continuous master narration track.
+- Use one circular presenter PIP, normally bottom-left, and verify it does not cover buttons, forms, leaderboards, code, or other key UI.
+- If the recording is shorter than the scene, clone-hold the final frame to match the scene duration. Do not slow down, loop, or stretch the recording unless 黄总 explicitly asks for that effect.
+- Extract frames from the start, middle, and end of each screen-recording scene. Confirm the recording is readable, moving where expected, and not black at the hold point.
+
 ## Motion Checks
 
 Do not rely on one screenshot for dynamic sections. Check continuity around:
@@ -137,10 +160,39 @@ Do not rely on one screenshot for dynamic sections. Check continuity around:
 - The caption timeline must be burned into the visible render. Missing subtitle clips are a final-blocking error even if ASR JSON exists.
 - Never let final sound come from individual DUIX video slots; that creates gaps whenever the digital human is off screen.
 - DUIX driving audio slices should be converted to the verified service format before submission, normally 44.1kHz mono WAV.
-- After any TTS regeneration, speed change, or audio compression, rerun ASR and rebuild the caption track.
-- If captions drift by seconds, do not hand nudge every line. Diagnose whether captions were generated from the wrong audio or from pre-speed-change timing.
+- After any TTS regeneration, speed change, or audio compression, rebuild the caption track from the final audio.
+- Default caption timing is known-text forced alignment: feed the approved narration text plus the corresponding audio into a language-specific aligner and use the returned character/token/word timestamps. Display text always comes from the human-approved script; ASR output is timing evidence only.
+- Chinese narration uses FunASR `fa-zh` / `speech_timestamp_prediction-v1-16k-offline`.
+- English narration uses the local English CTC forced aligner:
+
+```bash
+node scripts/known-text-forced-align.mjs input.json output.json
+```
+
+  Input shape:
+
+```json
+{
+  "scenes": [
+    {
+      "id": "s001",
+      "wav": "production/<project>/audio/scenes/s001.wav",
+      "text": "Approved English narration for this scene.",
+      "lang": "auto"
+    }
+  ]
+}
+```
+
+  `lang:auto` selects `zh` for CJK-heavy text and `en` for Latin-heavy text. The English path runs `torchaudio` wav2vec2 CTC `forced_align` from `/Users/huangzongning/CosyVoice/venv/bin/python` by default, with `EN_ALIGN_PYTHON` and `EN_ALIGN_BUNDLE` as overrides. The first run may download/cache the `WAV2VEC2_ASR_BASE_960H` bundle under `~/.cache/torch`; no online production service is changed.
+- Align per scene using `audio/*timeline*.json` scene boundaries and per-scene audio slices. This constrains drift and prevents a bad dialect/English recognition segment from pushing downstream subtitles across scene cuts.
+- Do not use the old path `ASR recognizes audio -> LCS match to the human script` as the default. It can fail badly on dialect voices, elderly voices, English acronyms, and brand/model names; EvoMap H2 had subtitle drift up to 4.6s from that failure mode.
+- Add or keep validator red lines that reject captions marked as recognized-ASR anchors when a known-text forced-alignment source is expected.
+- If captions drift by seconds, do not hand nudge every line. Diagnose whether captions were generated from the wrong audio, pre-speed-change timing, recognized-ASR anchors, or cross-scene drift.
 - If mouth movement drifts inside a reused long video slot, check `data-media-start` before regenerating DUIX.
 - Expected final validation: `lint` has 0 errors, `inspect` has 0 layout issues, final audio PCM hash matches the master audio PCM hash, and every conceptual video slot differs between two frames 0.5s apart.
+
+Reference case: `.hive/research/2026-06-18-evomap-h2-forced-captions.md` documents the EvoMap H2 fix where known-text forced alignment replaced ASR-recognized anchors.
 
 ## Final Response
 

@@ -1,0 +1,150 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://director-duix-hyperframes.local/video-master-pipeline/recipe.schema.json",
+  "title": "Video Master Pipeline Recipe",
+  "type": "object",
+  "required": [
+    "version",
+    "project_id",
+    "title",
+    "base_dir",
+    "digital_human",
+    "voice",
+    "script",
+    "audio",
+    "visuals",
+    "scenes",
+    "outputs",
+    "validation"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "$schema": { "type": "string" },
+    "version": { "type": "string" },
+    "project_id": { "type": "string", "pattern": "^[a-z0-9][a-z0-9-]*$" },
+    "title": { "type": "string", "minLength": 1 },
+    "base_dir": { "type": "string", "minLength": 1 },
+    "digital_human": {
+      "type": "object",
+      "required": ["id"],
+      "additionalProperties": false,
+      "properties": {
+        "id": { "type": "string" },
+        "plate_mode": { "type": "string" },
+        "notes": { "type": "string" }
+      }
+    },
+    "voice": {
+      "type": "object",
+      "required": ["mode"],
+      "additionalProperties": true,
+      "properties": {
+        "mode": { "type": "string" },
+        "voice_id": { "type": "string" },
+        "reference_audio": { "type": "string" },
+        "prompt_text": { "type": "string" },
+        "engine": { "type": "string" },
+        "notes": { "type": "string" }
+      }
+    },
+    "script": {
+      "type": "object",
+      "required": ["path", "version"],
+      "additionalProperties": false,
+      "properties": {
+        "path": { "type": "string" },
+        "version": { "type": "string" },
+        "humanizer_status": { "type": "string" },
+        "pronunciation_notes": { "type": "array", "items": { "type": "string" } }
+      }
+    },
+    "audio": {
+      "type": "object",
+      "required": ["master", "timeline", "captions", "scene_wav_dir"],
+      "additionalProperties": false,
+      "properties": {
+        "master": { "type": "string" },
+        "timeline": { "type": "string" },
+        "captions": { "type": "string" },
+        "scene_wav_dir": { "type": "string" },
+        "alignment": { "type": "string" }
+      }
+    },
+    "visuals": {
+      "type": "object",
+      "required": ["width", "height", "fps", "manifest", "composition_html"],
+      "additionalProperties": false,
+      "properties": {
+        "width": { "type": "integer" },
+        "height": { "type": "integer" },
+        "fps": { "type": "integer" },
+        "manifest": { "type": "string" },
+        "composition_html": { "type": "string" },
+        "isolated_html": { "type": "string" },
+        "style_notes": { "type": "string" }
+      }
+    },
+    "screen_assets": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["id", "path"],
+        "additionalProperties": false,
+        "properties": {
+          "id": { "type": "string" },
+          "path": { "type": "string" },
+          "muted": { "type": "boolean" },
+          "hold_variant": { "type": "string" },
+          "notes": { "type": "string" }
+        }
+      }
+    },
+    "scenes": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": ["id", "order", "kind", "script_ref", "duration", "component"],
+        "additionalProperties": false,
+        "properties": {
+          "id": { "type": "string" },
+          "order": { "type": "integer" },
+          "kind": {
+            "type": "string",
+            "enum": ["presenter_full", "component_pip", "screen_recording_pip", "chapter_card", "summary"]
+          },
+          "script_ref": { "type": "string" },
+          "duration": { "type": "number" },
+          "start": { "type": "number" },
+          "component": { "type": "string" },
+          "scene_type": { "type": "string" },
+          "duix_result": { "type": "string" },
+          "pip_duix_result": { "type": "string" },
+          "screen_asset": { "type": "string" },
+          "scene_wav": { "type": "string" },
+          "frozen": { "type": "boolean" },
+          "notes": { "type": "string" }
+        }
+      }
+    },
+    "outputs": {
+      "type": "object",
+      "required": ["silent", "final"],
+      "additionalProperties": false,
+      "properties": {
+        "silent": { "type": "string" },
+        "final": { "type": "string" }
+      }
+    },
+    "validation": {
+      "type": "object",
+      "required": ["commands", "audit_frames"],
+      "additionalProperties": false,
+      "properties": {
+        "commands": { "type": "array", "items": { "type": "string" } },
+        "audit_frames": { "type": "array", "items": { "type": "number" } },
+        "notes": { "type": "string" }
+      }
+    }
+  }
+}

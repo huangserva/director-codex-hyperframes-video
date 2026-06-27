@@ -1,0 +1,168 @@
+{
+  "$schema": "../schemas/recipe.schema.json",
+  "version": "2026-06-23-v8d",
+  "project_id": "okx-xstocks-laonong-tom-v8d",
+  "title": "OKX xStocks 老农四川话 v8d final section title layout",
+  "base_dir": "first390-template-locked",
+  "digital_human": {
+    "id": "dh-02-laonong",
+    "plate_mode": "locked v7 DUIX presenter reused as fullscreen and circular PIP",
+    "notes": "Visual-only v8d fix. Uses one clear title per clip: generated section cards only on OKX pages and B-roll; concept cards use their built-in titles. v7 master audio, v7 captions, and v7 DUIX mouth tracks are frozen."
+  },
+  "voice": {
+    "mode": "locked_existing_master",
+    "voice_id": "s1-dnn-clean-v7",
+    "engine": "none_this_phase",
+    "reference_audio": "first390-template-locked/production/okx-xstocks-laonong-tom/voice/sichuan-refs-v4/s1-dnn-clean.wav",
+    "prompt_text": "first390-template-locked/production/okx-xstocks-laonong-tom/voice/sichuan-refs-v4/s1-dnn-clean.prompt.txt",
+    "notes": "No TTS rerun. Final mux uses first390-template-locked/production/okx-xstocks-laonong-tom/audio/master-okx-v7.wav."
+  },
+  "script": {
+    "path": "first390-template-locked/production/okx-xstocks-laonong-tom/full-script-v4-compressed-display.txt",
+    "version": "v4-compressed-display locked for v7 captions",
+    "pronunciation_notes": [
+      "No pronunciation work in v8d.",
+      "Captions remain clean display terms from captions-okx-tom-v7.json."
+    ]
+  },
+  "audio": {
+    "master": "first390-template-locked/production/okx-xstocks-laonong-tom/audio/master-okx-v7.wav",
+    "timeline": "first390-template-locked/production/okx-xstocks-laonong-tom/audio/timeline-v7.json",
+    "captions": "first390-template-locked/production/okx-xstocks-laonong-tom/audio/captions-okx-tom-v7.json",
+    "scene_wav_dir": "first390-template-locked/production/okx-xstocks-laonong-tom/audio/scenes-v7",
+    "alignment": "locked v7 line captions"
+  },
+  "visuals": {
+    "width": 1280,
+    "height": 720,
+    "fps": 30,
+    "manifest": "first390-template-locked/okx-xstocks-laonong-tom-v8d.manifest.json",
+    "composition_html": "first390-template-locked/index-okx-xstocks-laonong-tom-v8d.html",
+    "isolated_html": "first390-template-locked/okx-xstocks-laonong-tom-v8d-isolated/index.html",
+    "style_notes": "Same v8 visual system, with clear 360x90 section title cards in a unified left safe-rail position for OKX pages and B-roll; no duplicate overlays on concept cards."
+  },
+  "screen_assets": [
+    {
+      "id": "stock-charts-cc0",
+      "path": "first390-template-locked/production/okx-xstocks-laonong-tom/assets/broll-v8/raw/stock-charts-cc0.jpg",
+      "muted": true,
+      "notes": "Wikimedia Commons CC0 stock chart."
+    },
+    {
+      "id": "okx-dex-swap",
+      "path": "first390-template-locked/production/okx-xstocks-laonong-tom/assets/broll-v8/screenshots-clean/okx-dex-swap-clean.png",
+      "muted": true,
+      "notes": "OKX official public DEX Swap screenshot, clean."
+    },
+    {
+      "id": "concept-tokenized-stocks",
+      "path": "first390-template-locked/production/okx-xstocks-laonong-tom/assets/broll-v8/generated/concept-tokenized-stocks.png",
+      "muted": true,
+      "notes": "Self-generated neutral tokenized stock concept card."
+    },
+    {
+      "id": "concept-prize-leaderboard",
+      "path": "first390-template-locked/production/okx-xstocks-laonong-tom/assets/broll-v8/generated/concept-prize-leaderboard.png",
+      "muted": true,
+      "notes": "Self-generated neutral competition/prize concept card."
+    },
+    {
+      "id": "concept-ice-okx-fact-card",
+      "path": "first390-template-locked/production/okx-xstocks-laonong-tom/assets/broll-v8/generated/concept-ice-okx-fact-card.png",
+      "muted": true,
+      "notes": "Self-generated neutral ICE/OKX fact card based on ICE official news release."
+    },
+    {
+      "id": "concept-boost-entry",
+      "path": "first390-template-locked/production/okx-xstocks-laonong-tom/assets/broll-v8/generated/concept-boost-entry.png",
+      "muted": true,
+      "notes": "Self-generated neutral wallet Boost entry concept card."
+    }
+  ],
+  "scenes": [
+    {
+      "id": "s001",
+      "order": 1,
+      "kind": "screen_recording_pip",
+      "script_ref": "开场：老农、人设、传统美股麻烦、OKX DEX 解决方案",
+      "start": 0,
+      "duration": 18.12,
+      "component": "HeroAroll + ScreenWithPip",
+      "duix_result": "first390-template-locked/production/okx-xstocks-laonong-tom/duix-results/okx_tom_v7_s001-r.mp4",
+      "pip_duix_result": "first390-template-locked/production/okx-xstocks-laonong-tom/duix-results/okx_tom_v7_s001-r.mp4",
+      "screen_asset": "okx-dex-swap",
+      "scene_wav": "first390-template-locked/production/okx-xstocks-laonong-tom/audio/scenes-v7/s001.wav",
+      "frozen": true,
+      "notes": "OKX-page labels use left-low dark area; chart/concept labels use right-top safe area."
+    },
+    {
+      "id": "s002",
+      "order": 2,
+      "kind": "component_pip",
+      "script_ref": "链上股票、TSLAx/AAPLx、24小时、0手续费",
+      "start": 18.12,
+      "duration": 21.39,
+      "component": "ScreenWithPip",
+      "pip_duix_result": "first390-template-locked/production/okx-xstocks-laonong-tom/duix-results/okx_tom_v7_s002-r.mp4",
+      "screen_asset": "concept-tokenized-stocks",
+      "scene_wav": "first390-template-locked/production/okx-xstocks-laonong-tom/audio/scenes-v7/s002.wav",
+      "frozen": true
+    },
+    {
+      "id": "s003",
+      "order": 3,
+      "kind": "component_pip",
+      "script_ref": "交易赛、交易量排名、前5000、300000 USDC",
+      "start": 39.51,
+      "duration": 18.2,
+      "component": "ScreenWithPip",
+      "pip_duix_result": "first390-template-locked/production/okx-xstocks-laonong-tom/duix-results/okx_tom_v7_s003-r.mp4",
+      "screen_asset": "concept-prize-leaderboard",
+      "scene_wav": "first390-template-locked/production/okx-xstocks-laonong-tom/audio/scenes-v7/s003.wav",
+      "frozen": true
+    },
+    {
+      "id": "s004",
+      "order": 4,
+      "kind": "screen_recording_pip",
+      "script_ref": "ICE 投 OKX、股票上链、下一代入口",
+      "start": 57.71,
+      "duration": 18.48,
+      "component": "HeroAroll + ScreenWithPip",
+      "duix_result": "first390-template-locked/production/okx-xstocks-laonong-tom/duix-results/okx_tom_v7_s004-r.mp4",
+      "pip_duix_result": "first390-template-locked/production/okx-xstocks-laonong-tom/duix-results/okx_tom_v7_s004-r.mp4",
+      "screen_asset": "concept-ice-okx-fact-card",
+      "scene_wav": "first390-template-locked/production/okx-xstocks-laonong-tom/audio/scenes-v7/s004.wav",
+      "frozen": true,
+      "notes": "Next-entry OKX screenshot label uses left-low safe area to avoid nav and swap UI."
+    },
+    {
+      "id": "s005",
+      "order": 5,
+      "kind": "screen_recording_pip",
+      "script_ref": "截止、Boost 找交易赛、小额试、收尾",
+      "start": 76.19,
+      "duration": 19.37,
+      "component": "SummaryCta + ScreenWithPip",
+      "duix_result": "first390-template-locked/production/okx-xstocks-laonong-tom/duix-results/okx_tom_v7_s005-r.mp4",
+      "pip_duix_result": "first390-template-locked/production/okx-xstocks-laonong-tom/duix-results/okx_tom_v7_s005-r.mp4",
+      "screen_asset": "concept-boost-entry",
+      "scene_wav": "first390-template-locked/production/okx-xstocks-laonong-tom/audio/scenes-v7/s005.wav",
+      "frozen": true
+    }
+  ],
+  "outputs": {
+    "silent": "first390-template-locked/render/okx-xstocks-laonong-tom-v8d-silent.mp4",
+    "final": "first390-template-locked/render/okx-xstocks-laonong-tom-v8d-final.mp4"
+  },
+  "validation": {
+    "commands": [
+      "node codex-skills/video-master-pipeline/scripts/validate-recipe.mjs codex-skills/video-master-pipeline/recipes/okx-xstocks-laonong-tom-v8d.recipe.json",
+      "cd first390-template-locked && OKX_TOM_VARIANT=v8d node scripts/validate-okx-xstocks-laonong-tom-v8-pipeline.mjs --final",
+      "cd first390-template-locked/okx-xstocks-laonong-tom-v8d-isolated && npm_config_ignore_scripts=true npx --yes hyperframes@0.6.79 lint",
+      "cd first390-template-locked/okx-xstocks-laonong-tom-v8d-isolated && npm_config_ignore_scripts=true npx --yes hyperframes@0.6.79 inspect --at 2,8,15,24,35,43,55,65,74,84,92 --timeout 180000"
+    ],
+    "audit_frames": [2, 8, 15, 24, 35, 43, 55, 65, 74, 84, 92],
+    "notes": "Check compact section labels remain visible and do not cover OKX UI, key card figures, old-farmer PIP, or captions."
+  }
+}
